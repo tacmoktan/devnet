@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import Navbar from './components/layouts/Navbar';
+import Landing from './components/layouts/Landing';
+import Routes from './components/routing/Routes';
+
+import store from './store';
+import { setAuthToken } from './redux/utils/setAuthToken';
+import { loadUser } from './redux/actions/auth';
+
+if (localStorage.token)
+  setAuthToken(localStorage.token)
 
 function App() {
+
+  useEffect(() => {
+    store.dispatch(loadUser())
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Routes />
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
