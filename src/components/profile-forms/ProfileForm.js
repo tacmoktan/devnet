@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../redux/actions/profile';
 import { PropTypes } from 'prop-types';
 
-const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentProfile, history }) => {
+const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentProfile, history }) => {
 
     const initialState = {
         bio: '',
@@ -24,26 +24,32 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
     const { bio, address, company, website, github, status, skills, facebook, linkedin, youtube } = formData;
 
     useEffect(() => {
-        getCurrentProfile();
+        if (!profile)
+            getCurrentProfile();
 
-        const profileData = { ...initialState };
-        for (const key in profile) {
-            if (key in profileData)
-                profileData[key] = profile[key]
+        //to update profile if user has a profile
+        if (!loading && profile) {
 
+            const profileData = { ...initialState };
+            for (const key in profile) {
+                if (key in profileData)
+                    profileData[key] = profile[key]
+
+            }
+
+            for (const key in profile.social) {
+                if (key in profileData)
+                    profileData[key] = profile.social[key]
+            }
+
+            if (Array.isArray(profile.skills))
+                profileData.skills = profile.skills.join(', ');
+
+            setFormData(profileData);
         }
 
-        for (const key in profile.social) {
-            if (key in profileData)
-                profileData[key] = profile.social[key]
-        }
 
-        if (Array.isArray(profile.skills))
-            profileData.skills = profile.skills.join(', ');
-
-        setFormData(profileData);
-
-    }, [loading]);
+    }, [getCurrentProfile, profile, loading]);
 
 
     const [showSocialLinks, setShowSocialLinks] = useState(false);
@@ -55,8 +61,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
     const handleSubmit = e => {
         e.preventDefault();
         console.log(formData);
-        const isProfileEdited = true;
-        createProfile(formData, history, isProfileEdited);
+        createProfile(formData, history, profile ? true : false);
     }
 
     const handleShowSocialLinks = e => setShowSocialLinks(!showSocialLinks);
@@ -104,7 +109,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
     </>
 }
 
-EditProfile.propTypes = {
+ProfileForm.propTypes = {
     profile: PropTypes.object.isRequired,
     createProfile: PropTypes.func.isRequired,
     getCurrentProfile: PropTypes.func.isRequired
@@ -113,4 +118,4 @@ EditProfile.propTypes = {
 const mapStateToProps = state => ({
     profile: state.profile
 })
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(EditProfile));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(ProfileForm));

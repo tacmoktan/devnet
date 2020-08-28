@@ -7,6 +7,7 @@ const ProfileGithubRepos = ({ githubUsername, getGithubRepos, repos }) => {
 
     useEffect(() => {
         getGithubRepos(githubUsername)
+        console.log(repos)
     }, [getGithubRepos, githubUsername])
 
     return (
@@ -19,7 +20,7 @@ const ProfileGithubRepos = ({ githubUsername, getGithubRepos, repos }) => {
 
                         <a key={repo.id} href={repo.html_url} className="github-repo" target="_blank" rel="noopener noreferrer">
                             <b>{repo.name}</b>
-                            <p>{repo.description && repo.description}</p>
+                            <p>{repo.description}</p>
                         </a>
                     ))}
                 </div>
