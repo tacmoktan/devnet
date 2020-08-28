@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 import { getProfileByUserId } from '../../redux/actions/profile';
 import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 
 const Profile = ({ profile: { profile, loading }, getProfileByUserId, match, auth }) => {
 
@@ -35,6 +36,12 @@ const Profile = ({ profile: { profile, loading }, getProfileByUserId, match, aut
     )
 }
 
+Profile.propTypes = {
+    profile: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    getProfileByUserId: PropTypes.func.isRequired
+}
 
 
 const mapStateToProps = state => ({

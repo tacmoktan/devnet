@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { addComment } from '../../redux/actions/post';
 
 import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 
 const CommentForm = ({ post: { _id }, addComment }) => {
-
-
 
     const [comment, setComment] = useState({
         text: ''
@@ -24,6 +23,11 @@ const CommentForm = ({ post: { _id }, addComment }) => {
             <input type="submit" value="post" className="input-submit" />
         </form >
     )
+}
+
+CommentForm.propTypes = {
+    addComment: PropTypes.func.isRequired,
+    post:PropTypes.object.isRequired
 }
 
 export default connect(null, { addComment })(CommentForm);

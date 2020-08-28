@@ -4,6 +4,7 @@ import Spinner from '../layouts/Spinner/Spinner';
 import ProfileCard from './ProfileCard';
 //action
 import { getAllProfiles } from '../../redux/actions/profile'
+import { PropTypes } from 'prop-types';
 
 const Profiles = ({ profile: { profiles, loading }, getAllProfiles }) => {
 
@@ -17,6 +18,11 @@ const Profiles = ({ profile: { profiles, loading }, getAllProfiles }) => {
     return (<div className="profiles-container">
         {profileBlocks}
     </div>)
+}
+
+Profiles.propTypes = {
+    profile: PropTypes.object.isRequired,
+    getAllProfiles: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({

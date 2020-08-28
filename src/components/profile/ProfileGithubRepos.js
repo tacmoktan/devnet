@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getGithubRepos } from '../../redux/actions/profile';
 import Spinner from '../layouts/Spinner/Spinner';
+import { PropTypes } from 'prop-types';
 
 const ProfileGithubRepos = ({ githubUsername, getGithubRepos, repos }) => {
 
     useEffect(() => {
         getGithubRepos(githubUsername)
-        console.log(repos)
     }, [getGithubRepos, githubUsername])
 
     return (
@@ -27,6 +27,11 @@ const ProfileGithubRepos = ({ githubUsername, getGithubRepos, repos }) => {
             }
         </div>
     )
+}
+
+ProfileGithubRepos.propTypes = {
+    repos: PropTypes.array.isRequired,
+    getGithubRepos: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({

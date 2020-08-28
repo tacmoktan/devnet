@@ -8,6 +8,7 @@ import Comment from './Comment';
 import Spinner from '../layouts/Spinner/Spinner';
 
 import { getPost } from '../../redux/actions/post';
+import { PropTypes } from 'prop-types';
 
 const Post = ({ post: { post, loading }, getPost, match }) => {
 
@@ -31,6 +32,12 @@ const Post = ({ post: { post, loading }, getPost, match }) => {
                 }
             </div>
     )
+}
+
+Post.propTypes = {
+    post: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    getPost: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({

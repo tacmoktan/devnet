@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { createPost } from '../../redux/actions/post';
+import { PropTypes } from 'prop-types';
 
 const PostForm = ({ createPost }) => {
 
@@ -19,6 +20,8 @@ const PostForm = ({ createPost }) => {
     )
 }
 
-
+PostForm.propTypes = {
+    createPost: PropTypes.func.isRequired
+}
 
 export default connect(null, { createPost })(PostForm);
