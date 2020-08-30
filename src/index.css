@@ -5,21 +5,50 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* fonts */
+@font-face {
+  font-family: 'champion';
+  src: url(./fonts/champion.otf) format('otf');
+}
+
+@font-face {
+  font-family: 'chronicle-display';
+  src: url(./fonts/Chronicle-Display-Roman.otf) format('otf');
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  transition: all 0.15s ease;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.header {
+  width: 100%;
+  /* background: rgb(236, 178, 113); */
+}
+
 .nav {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  background: #ecb271;
+}
+
+.blocks-container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.link-container {
+  width: 450px;   /* 350px */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo-img {
@@ -29,21 +58,33 @@ code {
 .nav-link {
   padding: 20px;
   color: #2b5d78;
+  display: flex;
+  align-items: center;
 }
+
 
 .nav-link:hover {
-  color: white;
+  color: black;
 }
 
-.landing {
-  width: 100%;
+.auth-btn-container{
+  display: flex;
 }
 
-.landing-hero-image {
-  max-width: 700px;
-  width: 100%;
-  margin-left: auto;
-  display: block;
+.auth-btn{
+  padding:8px 20px;
+  border: 2px solid #2b5d78;
+}
+
+.auth-btn:hover{
+  background: rgba(43, 93, 120, 0.761);      /* light blue */
+  color:white;
+}
+
+.register-btn {
+  padding:8px;
+  background: #2b5d78;
+  color:white;
 }
 
 a {

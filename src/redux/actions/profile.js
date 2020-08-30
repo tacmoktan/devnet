@@ -193,7 +193,7 @@ export const getAllProfiles = () => async dispatch => {
         })
 
     } catch (err) {
-        console.log(err);
+        console.log(err.response);
         const errors = err.response.data.errors;
 
         if (errors)

@@ -21,7 +21,7 @@ Comment.propTypes = {
     auth: PropTypes.object.isRequired,
     comment: PropTypes.object.isRequired,
     delComment: PropTypes.func.isRequired,
-    postId: PropTypes.object.isRequired
+    postId: PropTypes.string.isRequired
 }
 
 const mapStateToProps = state => ({
