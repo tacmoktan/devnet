@@ -6,14 +6,17 @@ import ProfileCard from './ProfileCard';
 import { getAllProfiles } from '../../redux/actions/profile'
 import { PropTypes } from 'prop-types';
 
-const Profiles = ({ profile: { profiles, loading }, getAllProfiles }) => {
+const Profiles = ({ profile: { profiles, loading, error }, getAllProfiles }) => {
 
     useEffect(() => {
         getAllProfiles();
     }, [getAllProfiles]);
 
-    const profileBlocks = profiles.length === 0 || loading ? <Spinner /> : profiles.map(profileItem =>
-        <ProfileCard profileItem={profileItem} key={profileItem._id} />)
+    const profileBlocks = error ? <h1>{error.msg}</h1> : (
+        profiles.length === 0 || loading ? <Spinner /> : (
+            profiles.map(profileItem =>
+                <ProfileCard profileItem={profileItem} key={profileItem._id} />))
+    )
 
     return (<div className="profiles-container">
         {profileBlocks}

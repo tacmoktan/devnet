@@ -14,7 +14,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 //context
 import themeReducer from './context-api/themeReducer';
 import Context from './context-api/context';
-
+//fonts
+import { Champion, Chronicle } from './fonts/fonts';
 if (localStorage.token)
   setAuthToken(localStorage.token)
 
@@ -24,14 +25,15 @@ function App() {
     store.dispatch(loadUser())
   }, [])
 
+  //for Dark Theme feature 
   const [state, dispatch] = useReducer(themeReducer, {
     isDark: false
   });
 
   const { isDark } = state;
 
-  const mainPrimaryColor = isDark ? 'rgb(236, 178, 113)' : 'rgb(78 166 133)';
-  const mainSecondaryColor = isDark ? 'rgb(43, 93, 120)' : 'rgba(43, 93, 120, 0.7)';
+  const mainPrimaryColor = isDark ? 'rgb(236, 178, 113)' : 'rgb(78 166 133)';       //yellow or green
+  const mainSecondaryColor = isDark ? 'rgb(87, 90, 137)' : 'rgb(43, 93, 120)';     //purple or dark blue 
 
   let myTheme = createMuiTheme({
     palette: {
@@ -43,10 +45,11 @@ function App() {
         main: mainSecondaryColor
       }
     },
+
     typography: {
-      fontFamily: 'chronicle-display',
+      fontFamily: Chronicle.fontFamily,
       h1: {
-        fontFamily: 'champion'
+        fontFamily: Champion.fontFamily
       }
     }
   });
@@ -58,6 +61,7 @@ function App() {
 
           <ThemeProvider theme={myTheme}>
             <CssBaseline />
+
             <div className="App">
               <Navbar />
               <Switch>
@@ -65,6 +69,7 @@ function App() {
                 <Routes />
               </Switch>
             </div>
+
           </ThemeProvider>
 
         </Context.Provider>

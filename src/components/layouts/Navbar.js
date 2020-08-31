@@ -5,20 +5,55 @@ import { PropTypes } from 'prop-types';
 import DevNetLogo from '../../assets/logo.png';
 import '../../index.css';
 //material ui
-import { ThemeProvider } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import CssBaseline from "@material-ui/core/CssBaseline";
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
 import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
+import { makeStyles } from '@material-ui/core/styles';
+import { FormControlLabel, Checkbox } from '@material-ui/core/';
+import WbIncandescentIcon from '@material-ui/icons/WbIncandescent';
+import WbIncandescentOutlinedIcon from '@material-ui/icons/WbIncandescentOutlined';
 
 //action
 import { logout } from '../../redux/actions/auth';
+
 import Context from '../../context-api/context';
 
+const useNavbarStyles = makeStyles(theme => ({
+    header: {
+        width: '100%'
+    },
+    nav: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '10px 0'
+    },
+    navLink: {
+        display: 'flex',
+        alignItems: 'center',
+        fontFamily: theme.typography.h1.fontFamily,
+        color: theme.palette.primary.main,
+        fontSize: '1.2em',
+        '&:hover': {
+            color: theme.palette.secondary.light
+        }
+    },
+    authBtn: {
+        padding: '8px 20px',
+        border: `2px solid ${theme.palette.secondary.light}`,
+    },
+    registerBtn: {
+        backgroundColor: theme.palette.secondary.dark,
+        '&:hover': {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.secondary.contrastText,
+        }
+    }
+
+}))
 
 const Navbar = ({ auth, logout }) => {
 
-    const { dispatch } = useContext(Context);
+    const { state, dispatch } = useContext(Context);
 
     const handleClick = () => {
         dispatch({ type: "TOGGLE_DARK_MODE" })
@@ -26,28 +61,37 @@ const Navbar = ({ auth, logout }) => {
 
     const { isAuthenticated, loading } = auth;
 
+    const { header, nav, navLink, authBtn, registerBtn } = useNavbarStyles();
+
     const authLinks = (<>
-        <Link className="nav-link" to="/developers">Developers</Link>
-        <Link className="nav-link" to="/posts">Posts</Link>
-        <Link className="nav-link" to="/dashboard">Dashboard</Link>
-        <Link onClick={logout} className="nav-link" to="/login">Logout</Link>
+        <Link className={navLink} to="/developers">Developers</Link>
+        <Link className={navLink} to="/posts">Posts</Link>
+        <Link className={navLink} to="/dashboard">Dashboard</Link>
+        <Link onClick={logout} className={navLink} to="/login">Logout</Link>
     </>)
 
     const guestLinks = (<>
-        <Link className="nav-link" to="/developers">Developers</Link>
+        <Link className={navLink} to="/developers">Developers</Link>
         <div className="auth-btn-container">
-            <Link className="nav-link auth-btn login-btn" to="/login"> <LockRoundedIcon /> <pre>Login</pre></Link>
-            <Link className="nav-link auth-btn register-btn" to="/register"> <AccountBoxRoundedIcon />    <pre>Register</pre></Link>
+            <Link className={`${navLink} ${authBtn} login-btn`} to="/login" > <LockRoundedIcon /> Login</Link>
+            <Link className={`${navLink} ${authBtn} ${registerBtn}`} to="/register"> <AccountBoxRoundedIcon />  Register</Link>
         </div>
     </>)
 
     return (
 
-        <div className="header">
-            <nav className="nav blocks-container">
+        <div className={header}>
+            <nav className={`${nav} blocks-container`}>
                 <Link className="logo-link" to="/"><img src={DevNetLogo} className="logo-img" alt="devnet logo" /></Link>
                 <div className="link-container">
-                    <button onClick={handleClick} > toggle </button>
+                    
+                    <FormControlLabel
+                        control={<Checkbox icon={<WbIncandescentOutlinedIcon color="primary" fontSize="small"/>}
+                            checkedIcon={<WbIncandescentIcon color="primary" fontSize="small"/>}
+                            onChange={handleClick} />}
+                            title={state.isDark? 'Switch to Light Mode': 'Switch to Dark Mode'}
+                    />
+
                     {!loading && isAuthenticated ? authLinks : guestLinks}
                 </div>
             </nav>

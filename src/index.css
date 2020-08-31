@@ -6,37 +6,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* fonts */
-@font-face {
-  font-family: 'champion';
-  src: url(./fonts/champion.otf) format('otf');
-}
-
-@font-face {
-  font-family: 'chronicle-display';
-  src: url(./fonts/Chronicle-Display-Roman.otf) format('otf');
-}
-
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   transition: all 0.15s ease;
+  word-spacing: 1.5px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
-.header {
-  width: 100%;
-  /* background: rgb(236, 178, 113); */
-}
-
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .blocks-container {
@@ -71,24 +50,9 @@ code {
   display: flex;
 }
 
-.auth-btn{
-  padding:8px 20px;
-  border: 2px solid #2b5d78;
-}
-
-.auth-btn:hover{
-  background: rgba(43, 93, 120, 0.761);      /* light blue */
-  color:white;
-}
-
-.register-btn {
-  padding:8px;
-  background: #2b5d78;
-  color:white;
-}
-
 a {
   text-decoration: none;
+  color:black;
 }
 
 .alert-danger {

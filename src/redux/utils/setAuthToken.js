@@ -1,11 +1,16 @@
 import axios from 'axios';
 import store from '../../store';
-import { LOG_OUT } from '../actions/types';
+import { LOG_OUT, PROFILE_ERROR } from '../actions/types';
 
 //to check if Token is expired, if yes logout the user
 axios.interceptors.response.use(
     res => res,
     err => {
+        if (err.toString().includes('Network Error')){
+            throw err
+        }
+            
+
         if (err.response.data.msg === 'Token is not invalid') {
             store.dispatch({
                 type: LOG_OUT

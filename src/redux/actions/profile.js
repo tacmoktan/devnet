@@ -193,16 +193,12 @@ export const getAllProfiles = () => async dispatch => {
         })
 
     } catch (err) {
-        console.log(err.response);
-        const errors = err.response.data.errors;
+        if (err.toString().includes('Network'))
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: { msg: "Connection Failed" }
+            })
 
-        if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
-
-        dispatch({
-            type: PROFILE_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
     }
 }
 
