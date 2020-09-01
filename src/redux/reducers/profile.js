@@ -59,7 +59,8 @@ const profile = (state = initialState, action) => {
             return {
                 ...state,
                 profile: null,
-                repos: []
+                repos: [],
+                error:null
             }
 
         default:

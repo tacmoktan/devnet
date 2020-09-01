@@ -18,20 +18,16 @@ const Landing = ({ isAuthenticated }) => {
             display: 'block',
         },
         landingTextContainer: {
-            display:'grid',
-            rowGap:'20px'
+            display: 'grid',
+            rowGap: '20px'
         },
         landingTextDescription: {
             fontSize: '2em'
-        },
-        getStartedBtn:{
-            padding:'10px 20px',
-            width:'fit-content'
         }
 
     }));
 
-    const { landingHeroImage, landingTextContainer, landingTitle, landingTextDescription, getStartedBtn } = useLandingStyles();
+    const { landingHeroImage, landingTextContainer, landingTitle, landingTextDescription } = useLandingStyles();
 
     if (isAuthenticated)
         return <Redirect to='/dashboard' />
@@ -51,7 +47,7 @@ const Landing = ({ isAuthenticated }) => {
                         <Typography variant="h1" color="secondary" >Ideas.</Typography>
                     </div>
                     <Typography className={landingTextDescription}>Connect with professionals of IT industry, share posts, discuss ideas and grow your circle.</Typography>
-                    <Button variant="contained" color="secondary" component={RouterLink} to="/login"className={getStartedBtn}>
+                    <Button variant="contained" color="secondary" component={RouterLink} to="/login">
                         GET STARTED  <DoubleArrowIcon />
                     </Button>
                 </Grid>

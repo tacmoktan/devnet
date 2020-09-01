@@ -5,8 +5,13 @@ import PropTypes from 'prop-types';
 //action
 import setAlert from '../../redux/actions/alert';
 import { register } from '../../redux/actions/auth';
+import { Paper, Grid, TextField, Button, Typography } from '@material-ui/core';
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
+import { useAuthFormStyles } from './authFormStyles';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
+
+    const { externalLink, formAndImageContainer, formContainer, formImage } = useAuthFormStyles();
 
     const [formData, setFormData] = useState({
         name: '',
@@ -35,20 +40,32 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if (isAuthenticated)
         return <Redirect to="/dashboard" />
 
-    return (<>
-        <h1>Register</h1>
-        <form className="form" onSubmit={handleSubmit}>
-            <input className="input" type="text" name="name" placeholder="name" onChange={handleChange} required />
-            <input className="input" type="email" name="email" placeholder="email" onChange={handleChange} required />
-            <input className="input" type="password" name="password" placeholder="password" onChange={handleChange} required />
-            <input className="input" type="password" name="confirmPassword" placeholder="confirm password" onChange={handleChange} required />
-            <input className="input submit" type="submit" value="Submit" />
-        </form>
-        <div>
-            Already have an account?
-        <Link to="/login">Sign In</Link>
-        </div>
-    </>)
+    return (
+        <div className="blocks-container" style={{ padding: '40px 0' }}>
+            <Paper>
+                <Grid container direction="row">
+                    <Grid item xs className={formImage}>
+
+                    </Grid>
+                    <Grid item xs className={formContainer}>
+                        <div>Create an Account</div>
+                        <form className="form" onSubmit={handleSubmit}>
+                            <TextField variant="outlined" className="input" type="text" name="name" label="Name" onChange={handleChange} required />
+                            <TextField variant="outlined" className="input" type="email" name="email" label="Email" onChange={handleChange} required />
+                            <TextField variant="outlined" className="input" type="password" name="password" label="Password" onChange={handleChange} required />
+                            <TextField variant="outlined" className="input" type="password" name="confirmPassword" label="Confirm password" onChange={handleChange} required />
+                            <Button variant="contained" color="secondary" className="input submit" type="submit" value="Submit">
+                                Register <ArrowRightAltIcon />
+                            </Button>
+                        </form>
+                        <div>
+                            Already have an account?
+        <Link to="/login" className={externalLink} > <Typography color="secondary">Sign In</Typography></Link>
+                        </div>
+                    </Grid>
+                </Grid>
+            </Paper>
+        </div>)
 }
 
 Register.propTypes = {

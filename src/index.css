@@ -6,7 +6,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
+*,
+*::before,
+*::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -18,41 +20,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+/* overriding elements style */
+form {
+  display: grid;
+  row-gap: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* css */
 .blocks-container {
   max-width: 1140px;
   margin: 0 auto;
 }
 
-.link-container {
-  width: 450px;   /* 350px */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo-img {
-  width: 110px;
-}
-
-.nav-link {
-  padding: 20px;
-  color: #2b5d78;
-  display: flex;
-  align-items: center;
-}
-
-
-.nav-link:hover {
-  color: black;
-}
-
-.auth-btn-container{
-  display: flex;
-}
-
-a {
-  text-decoration: none;
-  color:black;
+@media screen and (max-width: 1200px) {
+  .blocks-container {
+    padding: 0px 20px;
+  }
 }
 
 .alert-danger {
@@ -63,9 +54,6 @@ a {
   color: green;
 }
 
-button {
-  cursor: pointer;
-}
 .btn {
   border: 2px solid;
 }
@@ -97,8 +85,8 @@ button {
 }
 
 .profile-card {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  justify-content: center;
   align-items: center;
   border: 1px solid;
   padding: 15px;
@@ -107,6 +95,8 @@ button {
 .profile-pic {
   width: 100px;
   border-radius: 50%;
+  display: block;
+  margin: 0 auto;
 }
 
 .profile-skills {

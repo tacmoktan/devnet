@@ -50,8 +50,28 @@ function App() {
       fontFamily: Chronicle.fontFamily,
       h1: {
         fontFamily: Champion.fontFamily
+      },
+      button: {
+        fontWeight: 'bold'
       }
-    }
+    },
+
+    overrides: {
+      MuiOutlinedInput:{
+        root:{
+          borderRadius: '30px',
+          maxWidth: '400px'
+        }
+      },
+      MuiButton: {
+        root: {
+          borderRadius: '30px',
+          padding: '10px',
+          maxWidth: '200px',
+        }
+      }
+    },
+
   });
 
   return (

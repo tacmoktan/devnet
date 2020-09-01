@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -27,6 +27,15 @@ const useNavbarStyles = makeStyles(theme => ({
         alignItems: 'center',
         padding: '10px 0'
     },
+    logoImg: {
+        width: 110
+    },
+    linkContainer: {
+        width: '450px',
+        display: "flex",
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
     navLink: {
         display: 'flex',
         alignItems: 'center',
@@ -36,6 +45,9 @@ const useNavbarStyles = makeStyles(theme => ({
         '&:hover': {
             color: theme.palette.secondary.light
         }
+    },
+    authBtnContainer: {
+        display: 'flex'
     },
     authBtn: {
         padding: '8px 20px',
@@ -61,7 +73,7 @@ const Navbar = ({ auth, logout }) => {
 
     const { isAuthenticated, loading } = auth;
 
-    const { header, nav, navLink, authBtn, registerBtn } = useNavbarStyles();
+    const { header, nav, logoImg, linkContainer, navLink, authBtnContainer, authBtn, registerBtn } = useNavbarStyles();
 
     const authLinks = (<>
         <Link className={navLink} to="/developers">Developers</Link>
@@ -72,7 +84,7 @@ const Navbar = ({ auth, logout }) => {
 
     const guestLinks = (<>
         <Link className={navLink} to="/developers">Developers</Link>
-        <div className="auth-btn-container">
+        <div className={authBtnContainer}>
             <Link className={`${navLink} ${authBtn} login-btn`} to="/login" > <LockRoundedIcon /> Login</Link>
             <Link className={`${navLink} ${authBtn} ${registerBtn}`} to="/register"> <AccountBoxRoundedIcon />  Register</Link>
         </div>
@@ -81,20 +93,22 @@ const Navbar = ({ auth, logout }) => {
     return (
 
         <div className={header}>
-            <nav className={`${nav} blocks-container`}>
-                <Link className="logo-link" to="/"><img src={DevNetLogo} className="logo-img" alt="devnet logo" /></Link>
-                <div className="link-container">
-                    
-                    <FormControlLabel
-                        control={<Checkbox icon={<WbIncandescentOutlinedIcon color="primary" fontSize="small"/>}
-                            checkedIcon={<WbIncandescentIcon color="primary" fontSize="small"/>}
-                            onChange={handleClick} />}
-                            title={state.isDark? 'Switch to Light Mode': 'Switch to Dark Mode'}
-                    />
+            <div className="blocks-container">
+                <nav className={nav}>
+                    <Link className="logo-link" to="/"><img src={DevNetLogo} className={logoImg} alt="devnet logo" /></Link>
+                    <div className={linkContainer}>
 
-                    {!loading && isAuthenticated ? authLinks : guestLinks}
-                </div>
-            </nav>
+                        <FormControlLabel
+                            control={<Checkbox icon={<WbIncandescentOutlinedIcon color="primary" fontSize="small" />}
+                                checkedIcon={<WbIncandescentIcon color="primary" fontSize="small" />}
+                                onChange={handleClick} />}
+                            title={state.isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                        />
+
+                        {!loading && isAuthenticated ? authLinks : guestLinks}
+                    </div>
+                </nav>
+            </div>
         </div>
     )
 }

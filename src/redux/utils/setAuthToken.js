@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../../store';
-import { LOG_OUT, PROFILE_ERROR } from '../actions/types';
+import { LOG_OUT } from '../actions/types';
 
 //to check if Token is expired, if yes logout the user
 axios.interceptors.response.use(
