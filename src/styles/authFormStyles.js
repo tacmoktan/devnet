@@ -3,7 +3,6 @@ import {makeStyles} from '@material-ui/core/styles';
 export const useAuthFormStyles = makeStyles(theme => ({
     formAndImageContainer: {
         width: '100%',
-        maxWidth: '1140px',
     },
     formContainer: {
         display: 'grid',

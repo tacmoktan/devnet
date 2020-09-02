@@ -5,8 +5,25 @@ import ProfileCard from './ProfileCard';
 //action
 import { getAllProfiles } from '../../redux/actions/profile'
 import { PropTypes } from 'prop-types';
+//styles
+import { Typography, makeStyles } from '@material-ui/core';
+
+const useProfileStyles = makeStyles(() => ({
+    profilesContainer: {
+        display: 'grid',
+        justifyContent: 'space-between',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        rowGap: '40px',
+        columnGap: '40px',
+        width: '100%',
+        padding:'20px 0'
+    }
+}))
+
 
 const Profiles = ({ profile: { profiles, loading, error }, getAllProfiles }) => {
+
+    const { profilesContainer } = useProfileStyles();
 
     useEffect(() => {
         getAllProfiles();
@@ -18,9 +35,15 @@ const Profiles = ({ profile: { profiles, loading, error }, getAllProfiles }) => 
                 <ProfileCard profileItem={profileItem} key={profileItem._id} />))
     )
 
-    return (<div className="profiles-container">
-        {profileBlocks}
-    </div>)
+    return (
+        <div className="main-container">
+            <div className="block-container">
+                <Typography variant="h1" color="secondary">IT Professionals</Typography>
+                <div className={profilesContainer}>
+                    {profileBlocks}
+                </div>
+            </div>
+        </div>)
 }
 
 Profiles.propTypes = {

@@ -3,15 +3,16 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { login } from '../../redux/actions/auth';
-import creativeTeam from '../../assets/hero-images/creative_team.png';
 //styles
 import { Grid, TextField, Button, Paper, Typography } from '@material-ui/core/';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import {useAuthFormStyles } from './authFormStyles'
+import { useAuthFormStyles } from '../../styles/authFormStyles';
+import { useButtonStyles } from '../../styles/buttons';
 
 const Login = ({ login, isAuthenticated }) => {
 
     const { externalLink, formAndImageContainer, formContainer, formImage } = useAuthFormStyles();
+    const { btn, btnLabel } = useButtonStyles();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -32,7 +33,7 @@ const Login = ({ login, isAuthenticated }) => {
 
     return (
 
-        <div className="blocks-container">
+        <div className="main-container">
             <Grid container
                 direction="row"
                 alignItems="center"
@@ -49,8 +50,9 @@ const Login = ({ login, isAuthenticated }) => {
                             <form onSubmit={handleSubmit}>
                                 <TextField variant="outlined" type="email" name="email" label="Email" onChange={handleChange} required />
                                 <TextField variant="outlined" type="password" name="password" label="Password" onChange={handleChange} required />
-                                <Button variant="contained" color="secondary" className="input submit" type="submit" name="Submit" >
-                                    Login <ArrowRightAltIcon />
+                                <Button variant="contained" color="secondary" className={btn} type="submit" name="Submit" >
+                                    <span className={btnLabel}>Login</span>
+                                    <ArrowRightAltIcon />
                                 </Button>
                             </form>
                             <div className="form-redirect">

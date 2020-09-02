@@ -1,0 +1,19 @@
+/* @font-face {
+    font-family: "Champion HTF-Welterweight";
+    src: url("./champion.otf") format("otf");
+}
+
+@font-face {
+    font-family: "Chronicle Display";
+    src: url("./Chronicle-Display-Roman.otf") format("otf");
+} */
+
+@font-face {
+    font-family: "gilroy";
+    src: url("./Gilroy-ExtraBold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "avenir";
+    src: url("./Avenir-Next.ttf") format("truetype");
+}

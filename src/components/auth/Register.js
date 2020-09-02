@@ -7,11 +7,13 @@ import setAlert from '../../redux/actions/alert';
 import { register } from '../../redux/actions/auth';
 import { Paper, Grid, TextField, Button, Typography } from '@material-ui/core';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import { useAuthFormStyles } from './authFormStyles';
+import { useAuthFormStyles } from '../../styles/authFormStyles';
+import { useButtonStyles } from '../../styles/buttons';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
 
-    const { externalLink, formAndImageContainer, formContainer, formImage } = useAuthFormStyles();
+    const { externalLink, formContainer, formImage } = useAuthFormStyles();
+    const { btn, btnLabel } = useButtonStyles();
 
     const [formData, setFormData] = useState({
         name: '',
@@ -41,7 +43,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         return <Redirect to="/dashboard" />
 
     return (
-        <div className="blocks-container" style={{ padding: '40px 0' }}>
+        <div className="main-container" style={{ padding: '40px 0' }}>
             <Paper>
                 <Grid container direction="row">
                     <Grid item xs className={formImage}>
@@ -54,8 +56,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                             <TextField variant="outlined" className="input" type="email" name="email" label="Email" onChange={handleChange} required />
                             <TextField variant="outlined" className="input" type="password" name="password" label="Password" onChange={handleChange} required />
                             <TextField variant="outlined" className="input" type="password" name="confirmPassword" label="Confirm password" onChange={handleChange} required />
-                            <Button variant="contained" color="secondary" className="input submit" type="submit" value="Submit">
-                                Register <ArrowRightAltIcon />
+                            <Button variant="contained" color="secondary" className={btn} type="submit" value="Submit">
+                                <span className={btnLabel}>Register</span>
+                                <ArrowRightAltIcon />
                             </Button>
                         </form>
                         <div>

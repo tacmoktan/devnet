@@ -19,7 +19,8 @@ import Context from '../../context-api/context';
 
 const useNavbarStyles = makeStyles(theme => ({
     header: {
-        width: '100%'
+        width: '100%',
+        borderBottom:`1px solid ${theme.palette.divider}`
     },
     nav: {
         display: 'flex',
@@ -93,9 +94,11 @@ const Navbar = ({ auth, logout }) => {
     return (
 
         <div className={header}>
-            <div className="blocks-container">
+            <div className="main-container">
                 <nav className={nav}>
-                    <Link className="logo-link" to="/"><img src={DevNetLogo} className={logoImg} alt="devnet logo" /></Link>
+                    <Link to="/">
+                        <img src={DevNetLogo} className={logoImg} alt="devnet logo" />
+                    </Link>
                     <div className={linkContainer}>
 
                         <FormControlLabel

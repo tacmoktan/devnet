@@ -57,8 +57,8 @@ function App() {
     },
 
     overrides: {
-      MuiOutlinedInput:{
-        root:{
+      MuiOutlinedInput: {
+        root: {
           borderRadius: '30px',
           maxWidth: '400px'
         }
