@@ -1,10 +1,14 @@
 import React from 'react';
+import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
+import { Typography } from '@material-ui/core';
 
 const ProfileExperience = ({ experience }) => {
-
     return (
         <div className="profile-experience">
-            <h3>Experience</h3>
+            <Typography variant="h4" color="primary">Experience</Typography>
+
+            <WorkOutlineIcon />
+
         </div>
     )
 }

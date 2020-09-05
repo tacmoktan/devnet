@@ -66,8 +66,8 @@ const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentP
 
     const handleShowSocialLinks = e => setShowSocialLinks(!showSocialLinks);
 
-    const statusOptions = ['Frontend Development', 'Backend Development', 'Full Stack Development', 'Mobile Development', 'Networking',
-        'Database Administrator', 'QA Officer', 'SEO']
+    const statusOptions = ['Frontend Developer', 'Backend Developer', 'Full Stack Developer', 'Mobile App Developer', 'Networking Administrator',
+        'Database Administrator', 'QA Officer', 'SEO Engineer']
 
     return <>
         < i >* = required</i >

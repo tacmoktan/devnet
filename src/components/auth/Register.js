@@ -43,31 +43,33 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         return <Redirect to="/dashboard" />
 
     return (
-        <div className="main-container" style={{ padding: '40px 0' }}>
-            <Paper>
-                <Grid container direction="row">
-                    <Grid item xs className={formImage}>
+        <div className="main-container" >
+            <div style={{ padding: '40px 0' }}>
+                <Paper>
+                    <Grid container direction="row">
+                        <Grid item xs className={formImage}>
 
-                    </Grid>
-                    <Grid item xs className={formContainer}>
-                        <div>Create an Account</div>
-                        <form className="form" onSubmit={handleSubmit}>
-                            <TextField variant="outlined" className="input" type="text" name="name" label="Name" onChange={handleChange} required />
-                            <TextField variant="outlined" className="input" type="email" name="email" label="Email" onChange={handleChange} required />
-                            <TextField variant="outlined" className="input" type="password" name="password" label="Password" onChange={handleChange} required />
-                            <TextField variant="outlined" className="input" type="password" name="confirmPassword" label="Confirm password" onChange={handleChange} required />
-                            <Button variant="contained" color="secondary" className={btn} type="submit" value="Submit">
-                                <span className={btnLabel}>Register</span>
-                                <ArrowRightAltIcon />
-                            </Button>
-                        </form>
-                        <div>
-                            Already have an account?
+                        </Grid>
+                        <Grid item xs className={formContainer}>
+                            <div>Create an Account</div>
+                            <form className="form" onSubmit={handleSubmit}>
+                                <TextField variant="outlined" className="input" type="text" name="name" label="Name" onChange={handleChange} required />
+                                <TextField variant="outlined" className="input" type="email" name="email" label="Email" onChange={handleChange} required />
+                                <TextField variant="outlined" className="input" type="password" name="password" label="Password" onChange={handleChange} required />
+                                <TextField variant="outlined" className="input" type="password" name="confirmPassword" label="Confirm password" onChange={handleChange} required />
+                                <Button variant="contained" color="secondary" className={btn} type="submit" value="Submit">
+                                    <span className={btnLabel}>Register</span>
+                                    <ArrowRightAltIcon />
+                                </Button>
+                            </form>
+                            <div>
+                                Already have an account?
         <Link to="/login" className={externalLink} > <Typography color="secondary">Sign In</Typography></Link>
-                        </div>
+                            </div>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Paper>
+                </Paper>
+            </div>
         </div>)
 }
 

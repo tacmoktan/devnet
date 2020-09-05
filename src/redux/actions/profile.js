@@ -193,12 +193,17 @@ export const getAllProfiles = () => async dispatch => {
         })
 
     } catch (err) {
-        if (err.toString().includes('Network Error'))
+        if (err.message)
             dispatch({
                 type: PROFILE_ERROR,
-                payload: { msg: "Connection Failed" }
+                payload: { msg: err.message }
             })
 
+        if (err.response)
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: { msg: err.response.statusText, status: err.respones.status }
+            })
     }
 }
 
@@ -216,16 +221,17 @@ export const getProfileByUserId = userId => async dispatch => {
 
 
     } catch (err) {
+        if (err.message)
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: { msg: err.message }
+            })
 
-        const errors = err.response.data.errors;
-
-        if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
-
-        dispatch({
-            type: PROFILE_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
+        if (err.response)
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: { msg: err.response.statusText, status: err.respones.status }
+            })
     }
 }
 
@@ -239,11 +245,17 @@ export const getGithubRepos = githubUsername => async dispatch => {
         })
 
     } catch (err) {
-        const message = err.message.includes('404') ? 'Github Profile not found' : ''
 
-        dispatch({
-            type: NO_REPOS,
-            payload: { msg: message ? message : err.response.statusText, status: err.response.status }
-        })
+        if (err.message)
+            dispatch({
+                type: NO_REPOS,
+                payload: { msg: err.message }
+            })
+
+        if (err.response)
+            dispatch({
+                type: NO_REPOS,
+                payload: { msg: err.response.statusText, status: err.respones.status }
+            })
     }
 }

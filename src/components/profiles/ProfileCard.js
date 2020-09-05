@@ -2,10 +2,9 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 //styles
-import { Paper, makeStyles, Button, Chip } from '@material-ui/core';
+import { Paper, makeStyles, Button, Chip, Typography } from '@material-ui/core';
 //fonts
-import { Gilroy, Avenir } from '../../fonts/fonts';
-
+import { Gilroy } from '../../fonts/fonts';
 
 const useProfileStyles = makeStyles(theme => ({
     profileCard: {
@@ -24,30 +23,23 @@ const useProfileStyles = makeStyles(theme => ({
         boxShadow: `0 8px 10px 2px ${theme.palette.divider}`
     },
     profileName: {
-        fontFamily: Avenir.fontFamily,
         fontSize: '2em'
     },
     profileStatus: {
-        fontFamily: Gilroy.fontFamily,
         textTransform: 'uppercase',
         opacity: 0.3,
+        fontWeight: 'bold'
     },
     skillsLabel: {
-        fontFamily: Avenir.fontFamily,
         fontSize: '1.2em'
     },
     profileSkill: {
         margin: '3px 5px',
         fontFamily: Gilroy.fontFamily,
-        cursor: 'pointer',
-        '&:hover': {
-            borderColor: theme.palette.secondary.light,
-            color: theme.palette.secondary.light
-        }
     }
 }))
 
-const ProfileCard = ({ profileItem: { user, company, skills, status } }) => {
+const ProfileCard = ({ profileItem: { user, skills, status } }) => {
 
     const { profileCard, profilePic, profileName, profileStatus, skillsLabel, profileSkill } = useProfileStyles();
 
@@ -55,14 +47,14 @@ const ProfileCard = ({ profileItem: { user, company, skills, status } }) => {
         <Paper className={profileCard} >
             <img src={user.avatar} alt="user avatar" className={profilePic} />
             <div>
-                <h2 className={profileName}>{user.name}</h2>
-                <div className={profileStatus}>{status}</div> {/* at <span className="profile-company">{company}</span> */}
+                <Typography variant="subtitle1" className={profileName}>{user.name}</Typography>
+                <Typography variant="subtitle1" className={profileStatus}>{status}</Typography> {/* at <span className="profile-company">{company}</span> */}
             </div>
             <div className="profile-skills">
-                <h3 className={skillsLabel}>SKills</h3>
+                <Typography variant="h4" className={skillsLabel}>SKills</Typography>
                 {skills.map((skill, i) =>
-                    i < 4 ? <Chip key={'skill_' + i} variant="outlined" color="primary" className={profileSkill} label={skill} />
-                        : <></>)}
+                    i < 4 && <Chip key={'skill_' + i} variant="outlined" color="primary" className={profileSkill} label={skill} />
+                )}
             </div>
 
             <Button variant="contained" color="secondary" style={{ padding: '10px 20px' }} component={RouterLink} to={`/developers/${user._id}`} >

@@ -9,13 +9,13 @@ import Routes from './components/routing/Routes';
 import store from './store';
 import { setAuthToken } from './redux/utils/setAuthToken';
 import { loadUser } from './redux/actions/auth';
-import { ThemeProvider, CssBaseline } from '@material-ui/core';
+import { ThemeProvider, CssBaseline, responsiveFontSizes } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 //context
 import themeReducer from './context-api/themeReducer';
 import Context from './context-api/context';
 //fonts
-import { Champion, Chronicle } from './fonts/fonts';
+import { Champion, Chronicle, Gilroy, Avenir } from './fonts/fonts';
 if (localStorage.token)
   setAuthToken(localStorage.token)
 
@@ -51,6 +51,15 @@ function App() {
       h1: {
         fontFamily: Champion.fontFamily
       },
+      h2: {
+        fontFamily: Gilroy.fontFamily
+      },
+      h4: {
+        fontFamily: Gilroy.fontFamily
+      },
+      subtitle1: {
+        fontFamily: Avenir.fontFamily
+      },
       button: {
         fontWeight: 'bold'
       }
@@ -66,13 +75,15 @@ function App() {
       MuiButton: {
         root: {
           borderRadius: '30px',
-          padding: '10px',
+          padding: '10px 20px',
           maxWidth: '200px',
         }
-      }
+      },
     },
 
   });
+
+  myTheme = responsiveFontSizes(myTheme);
 
   return (
     <Provider store={store}>

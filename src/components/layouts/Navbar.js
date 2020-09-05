@@ -20,7 +20,7 @@ import Context from '../../context-api/context';
 const useNavbarStyles = makeStyles(theme => ({
     header: {
         width: '100%',
-        borderBottom:`1px solid ${theme.palette.divider}`
+        borderBottom: `1px solid ${theme.palette.divider}`
     },
     nav: {
         display: 'flex',
@@ -52,13 +52,14 @@ const useNavbarStyles = makeStyles(theme => ({
     },
     authBtn: {
         padding: '8px 20px',
-        border: `2px solid ${theme.palette.secondary.light}`,
+        border: `2px solid ${theme.palette.divider}`,
     },
     registerBtn: {
         backgroundColor: theme.palette.secondary.dark,
+        color: "white",
         '&:hover': {
+            color: "white",
             backgroundColor: theme.palette.primary.main,
-            color: theme.palette.secondary.contrastText,
         }
     }
 
