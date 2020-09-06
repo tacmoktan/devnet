@@ -202,7 +202,7 @@ export const getAllProfiles = () => async dispatch => {
         if (err.response)
             dispatch({
                 type: PROFILE_ERROR,
-                payload: { msg: err.response.statusText, status: err.respones.status }
+                payload: { msg: err.response.statusText, status: err.response.status }
             })
     }
 }
@@ -230,7 +230,7 @@ export const getProfileByUserId = userId => async dispatch => {
         if (err.response)
             dispatch({
                 type: PROFILE_ERROR,
-                payload: { msg: err.response.statusText, status: err.respones.status }
+                payload: { msg: err.response.statusText, status: err.response.status }
             })
     }
 }
@@ -255,7 +255,7 @@ export const getGithubRepos = githubUsername => async dispatch => {
         if (err.response)
             dispatch({
                 type: NO_REPOS,
-                payload: { msg: err.response.statusText, status: err.respones.status }
+                payload: { msg: err.response.statusText, status: err.response.status }
             })
     }
 }

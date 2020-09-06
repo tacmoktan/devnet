@@ -40,7 +40,6 @@ const useNavbarStyles = makeStyles(theme => ({
     navLink: {
         display: 'flex',
         alignItems: 'center',
-        fontFamily: theme.typography.h1.fontFamily,
         color: theme.palette.primary.main,
         fontSize: '1.2em',
         '&:hover': {

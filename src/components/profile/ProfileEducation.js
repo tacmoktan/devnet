@@ -1,24 +1,19 @@
 import React from 'react';
-import { Typography, makeStyles } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import EducationItem from './EducationItem';
-
-const useStyles = makeStyles(theme => ({
-    container: {
-        display:'grid',
-        alignContent:'center',
-        alignItems:'center',
-        rowGap:'20px'
-    }
-}))
+import { useStyles } from './eduExpStyles';
 
 const ProfileEducation = ({ education }) => {
-    const { container } = useStyles();
+    const { container, itemContainer } = useStyles();
     return (
         <div className={container}>
             <Typography variant="h4" color="primary">Education</Typography>
-            {
-                education.map(edu => <EducationItem {...edu} />)
-            }
+            
+            <div className={itemContainer}>
+                {
+                    education.map( (edu, index) => <EducationItem {...edu} key={index} />)
+                }
+            </div>
         </div>
     )
 }

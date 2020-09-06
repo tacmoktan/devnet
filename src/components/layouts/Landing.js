@@ -24,7 +24,7 @@ const Landing = ({ isAuthenticated }) => {
             rowGap: '20px'
         },
         landingTextDescription: {
-            fontSize: '2em'
+            fontSize: '1.5em'
         },
     }));
 

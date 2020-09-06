@@ -64,7 +64,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                             </form>
                             <div>
                                 Already have an account?
-        <Link to="/login" className={externalLink} > <Typography color="secondary">Sign In</Typography></Link>
+        <Link to="/login" className={externalLink} > <Typography color="primary">Sign In</Typography></Link>
                             </div>
                         </Grid>
                     </Grid>

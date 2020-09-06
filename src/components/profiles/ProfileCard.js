@@ -47,8 +47,8 @@ const ProfileCard = ({ profileItem: { user, skills, status } }) => {
         <Paper className={profileCard} >
             <img src={user.avatar} alt="user avatar" className={profilePic} />
             <div>
-                <Typography variant="subtitle1" className={profileName}>{user.name}</Typography>
-                <Typography variant="subtitle1" className={profileStatus}>{status}</Typography> {/* at <span className="profile-company">{company}</span> */}
+                <div className={profileName}>{user.name}</div>
+                <div className={profileStatus}>{status}</div> {/* at <span className="profile-company">{company}</span> */}
             </div>
             <div className="profile-skills">
                 <Typography variant="h4" className={skillsLabel}>SKills</Typography>

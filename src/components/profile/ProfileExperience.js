@@ -1,13 +1,19 @@
 import React from 'react';
-import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
 import { Typography } from '@material-ui/core';
+import {useStyles} from './eduExpStyles';
+import ExperienceItem from './ExperienceItem';
 
 const ProfileExperience = ({ experience }) => {
+    const { container, itemContainer } = useStyles();
     return (
-        <div className="profile-experience">
+        <div className={container}>
             <Typography variant="h4" color="primary">Experience</Typography>
 
-            <WorkOutlineIcon />
+            <div className={itemContainer}>
+                {
+                    experience.map( (exp, index) => <ExperienceItem {...exp} key={index} />)
+                }
+            </div>
 
         </div>
     )

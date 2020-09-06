@@ -20,7 +20,12 @@ const useProfileInfosStyles = makeStyles(theme => ({
         top: '-30px',
         left: '-40px',
         opacity: 0.2,
-        color: theme.palette.secondary.light
+        color: theme.palette.secondary.light,
+        [theme.breakpoints.down("md")]: {
+            fontSize: '3em',
+            top: '-20px',
+            left: '-25px',
+        },
     },
     bioLabel: {
         display: 'inline-block',
@@ -43,14 +48,12 @@ const ProfileInfos = ({ bio, website, social }) => {
             }
             {
                 website &&
-
                 <a href={website} target="_blank" rel="noopener noreferrer">
                     <Button variant="outlined" color="primary" className={btn}  >
                         <span className={btnLabel} style={{ textTransform: 'capitalize', fontFamily: 'avenir' }}>View Website</span>
                         <OpenInNewIcon />
                     </Button>
                 </a>
-
             }
 
 

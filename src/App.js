@@ -15,7 +15,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import themeReducer from './context-api/themeReducer';
 import Context from './context-api/context';
 //fonts
-import { Champion, Chronicle, Gilroy, Avenir } from './fonts/fonts';
+import { Champion, Gilroy, Avenir } from './fonts/fonts';
 if (localStorage.token)
   setAuthToken(localStorage.token)
 
@@ -47,7 +47,7 @@ function App() {
     },
 
     typography: {
-      fontFamily: Chronicle.fontFamily,
+      fontFamily: Avenir.fontFamily,
       h1: {
         fontFamily: Champion.fontFamily
       },
@@ -56,9 +56,6 @@ function App() {
       },
       h4: {
         fontFamily: Gilroy.fontFamily
-      },
-      subtitle1: {
-        fontFamily: Avenir.fontFamily
       },
       button: {
         fontWeight: 'bold'

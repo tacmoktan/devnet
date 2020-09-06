@@ -16,6 +16,10 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useButtonStyles } from '../../styles/buttons';
 
 const useProfileStyles = makeStyles(theme => ({
+    singleProfileContainer: {
+        display: 'grid',
+        rowGap: '30px'
+    },
     profileDetails: {
         display: 'grid',
         gridTemplateColumns: 'minmax(250px, 25%) minmax(250px, 75%)',
@@ -24,25 +28,30 @@ const useProfileStyles = makeStyles(theme => ({
             // gridTemplateColumns: 'repeat(auto-fit, minmax(250px, auto))  '
         }
     },
-    educationExperience: {
+    profileInfoBlock: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
         '& > div': {
-            padding: 60
+            padding: 60,
+            [theme.breakpoints.down("md")]: {
+                padding: 40,
+            },
+            [theme.breakpoints.down("sm")]: {
+                padding: 20,
+            }
         }
     },
-    otherProfileInfo: {
-        display: 'grid',
-        '& > div': {
-            padding: 60
-        }
+    educationExperience: {
+        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        [theme.breakpoints.down(800)]: {
+            gridTemplateColumns: 'auto',
+        },
     },
 
 }))
 
 const Profile = ({ profile: { profile, loading }, getProfileByUserId, match, auth }) => {
 
-    const { profileDetails, otherProfileInfo, educationExperience } = useProfileStyles();
+    const { singleProfileContainer, profileDetails, profileInfoBlock, educationExperience } = useProfileStyles();
     const { btn, btnLabel } = useButtonStyles();
 
     useEffect(() => {
@@ -53,10 +62,11 @@ const Profile = ({ profile: { profile, loading }, getProfileByUserId, match, aut
     return (
         (profile === null || loading) ? <Spinner /> :
             <div className="main-container">
-                <div className="block-container">
+                <div className={`${singleProfileContainer} block-container`}>
                     <Button variant="contained" color="secondary" component={RouterLink} to="/developers" className={btn}
                         style={{
                             borderRadius: 0,
+                            maxWidth: 285,
                         }}
                     >
                         <ArrowBackIcon />
@@ -64,18 +74,20 @@ const Profile = ({ profile: { profile, loading }, getProfileByUserId, match, aut
                     </Button>
                     <Paper className={profileDetails}>
                         <ProfilePicInfo {...profile} />
-                        <div className={otherProfileInfo} >
+                        <div className={profileInfoBlock} >
                             <ProfileInfos {...profile} />
                             <ProfileSkills skills={profile.skills} />
                         </div>
                     </Paper>
-                    <Paper className={educationExperience}>
+                    <Paper className={`${educationExperience} ${profileInfoBlock}`}>
                         {profile.education && <ProfileEducation education={profile.education} />}
 
                         {profile.experience && <ProfileExperience experience={profile.experience} />}
-
                     </Paper>
-                    {profile.github && <ProfileGithubRepos githubUsername={profile.github} />}
+
+                    <Paper className={profileInfoBlock}>
+                        {profile.github && <ProfileGithubRepos githubUsername={profile.github} />}
+                    </Paper>
                     {auth.user && (profile.user._id === auth.user._id)
                         && <RouterLink to="/edit-profile" className="btn">Edit Profile</RouterLink>}
                 </div>

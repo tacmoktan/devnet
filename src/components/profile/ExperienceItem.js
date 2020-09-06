@@ -1,19 +1,19 @@
 import React from 'react';
 import Moment from 'react-moment';
-import SchoolIcon from '@material-ui/icons/School';
-import { useItemstyles } from './eduExpStyles';
+import WorkSharpIcon from '@material-ui/icons/WorkSharp';
+import {useItemstyles} from './eduExpStyles';
 
-const EducationItem = ({ school, degree, to, from, current }) => {
+const ExperienceItem = ({ company, title, to, from, current }) => {
     const { itemBlock, iconBlock, fontPrimaryStyle, fontSecondaryStyle } = useItemstyles();
 
     return (
         <div className={itemBlock}>
             <div className={iconBlock}>
-                <SchoolIcon />
+                <WorkSharpIcon />
             </div>
-            <div className="info-details" >
+            <div className="info-details">
                 <div className="info">
-                    <span className={fontPrimaryStyle} >{degree}</span>  at <span className={fontPrimaryStyle} >{school}</span>
+                    <span className={fontPrimaryStyle} >{title}</span>  at <span className={fontPrimaryStyle} >{company}</span>
                 </div>
                 <div className={fontSecondaryStyle}>
                     <Moment date={from} format="MMM Do, YYYY" /> -  {
@@ -26,4 +26,4 @@ const EducationItem = ({ school, degree, to, from, current }) => {
     )
 }
 
-export default EducationItem;
+export default ExperienceItem;
