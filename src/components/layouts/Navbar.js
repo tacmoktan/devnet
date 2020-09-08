@@ -7,6 +7,7 @@ import '../../index.css';
 //material ui
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
 import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormControlLabel, Checkbox } from '@material-ui/core/';
 import WbIncandescentIcon from '@material-ui/icons/WbIncandescent';
@@ -32,7 +33,6 @@ const useNavbarStyles = makeStyles(theme => ({
         width: 110
     },
     linkContainer: {
-        width: '450px',
         display: "flex",
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -80,7 +80,7 @@ const Navbar = ({ auth, logout }) => {
         <Link className={navLink} to="/developers">Developers</Link>
         <Link className={navLink} to="/posts">Posts</Link>
         <Link className={navLink} to="/dashboard">Dashboard</Link>
-        <Link onClick={logout} className={navLink} to="/login">Logout</Link>
+        <Link onClick={logout} className={`${navLink} ${authBtn}`} to="/login"> <PowerSettingsNewIcon /> Logout</Link>
     </>)
 
     const guestLinks = (<>
@@ -94,12 +94,12 @@ const Navbar = ({ auth, logout }) => {
     return (
 
         <div className={header}>
-            <div className="main-container">
+            <div className="head main-container">
                 <nav className={nav}>
                     <Link to="/">
                         <img src={DevNetLogo} className={logoImg} alt="devnet logo" />
                     </Link>
-                    <div className={linkContainer}>
+                    <div className={linkContainer} style={{ width: isAuthenticated ? 600 : 450 }}>  {/* varying navbar width */}
 
                         <FormControlLabel
                             control={<Checkbox icon={<WbIncandescentOutlinedIcon color="primary" fontSize="small" />}

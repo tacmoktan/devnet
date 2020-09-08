@@ -7,7 +7,7 @@ const ProfileEducation = ({ education }) => {
     const { container, itemContainer } = useStyles();
     return (
         <div className={container}>
-            <Typography variant="h4" color="primary">Education</Typography>
+            <Typography variant="h4" color="primary">Academic Qualification</Typography>
             
             <div className={itemContainer}>
                 {

@@ -32,7 +32,7 @@ const Landing = ({ isAuthenticated }) => {
     const { btn, btnLabel } = useButtonStyles();
 
     if (isAuthenticated)
-        return <Redirect to='/dashboard' />
+        return <Redirect to='/posts' />
 
     return (
         <div className="main-container">
@@ -40,7 +40,6 @@ const Landing = ({ isAuthenticated }) => {
                 direction="row"
                 justify="space-between"
                 alignItems="center"
-                className="block-container"
             >
                 <Grid item className={landingTextContainer} xs>
                     <div className={landingTitle}>

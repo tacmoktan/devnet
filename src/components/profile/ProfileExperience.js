@@ -7,7 +7,7 @@ const ProfileExperience = ({ experience }) => {
     const { container, itemContainer } = useStyles();
     return (
         <div className={container}>
-            <Typography variant="h4" color="primary">Experience</Typography>
+            <Typography variant="h4" color="primary">Work Experience</Typography>
 
             <div className={itemContainer}>
                 {

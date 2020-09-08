@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
-
+import RoomIcon from '@material-ui/icons/Room';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import YouTubeIcon from '@material-ui/icons/YouTube';
@@ -12,11 +12,6 @@ const useProfilePicStyles = makeStyles(theme => ({
         display: 'grid',
         alignContent: 'flex-end',
         textAlign: 'center',
-        /* position: "sticky",
-        top: 0,
-        [theme.breakpoints.down('800')]: {
-            position: 'static',
-        } */
     },
     profilePicInfo: {
         color: 'white',
@@ -40,6 +35,8 @@ const useProfilePicStyles = makeStyles(theme => ({
     },
     profileAddress: {
         opacity: 0.75,
+        display: 'flex',
+        justifyContent: 'center'
     },
     socials: {
         display: 'flex',
@@ -65,7 +62,7 @@ const ProfilePicInfo = ({ user, address, status, company, social }) => {
             <div className={profilePicInfo}>
                 <Typography variant="h4">{user.name}</Typography>
 
-                <Typography variant="subtitle1" className={profileAddress}>{address}</Typography>
+                <Typography variant="subtitle1" className={profileAddress}> <RoomIcon /> {address}</Typography>
 
                 <Typography variant="subtitle1" className={statusCompany}>
                     <div className={profileStatus}> {status} </div> at

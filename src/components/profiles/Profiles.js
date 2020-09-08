@@ -16,7 +16,7 @@ const useProfileStyles = makeStyles(() => ({
         rowGap: '40px',
         columnGap: '40px',
         width: '100%',
-        padding:'20px 0'
+        padding: '20px 0'
     }
 }))
 
@@ -37,11 +37,9 @@ const Profiles = ({ profile: { profiles, loading, error }, getAllProfiles }) => 
 
     return (
         <div className="main-container">
-            <div className="block-container">
-                <Typography variant="h1" color="secondary">IT Professionals</Typography>
-                <div className={profilesContainer}>
-                    {profileBlocks}
-                </div>
+            <Typography variant="h1" color="secondary">IT Professionals</Typography>
+            <div className={profilesContainer}>
+                {profileBlocks}
             </div>
         </div>)
 }

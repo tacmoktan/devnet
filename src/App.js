@@ -10,7 +10,7 @@ import store from './store';
 import { setAuthToken } from './redux/utils/setAuthToken';
 import { loadUser } from './redux/actions/auth';
 import { ThemeProvider, CssBaseline, responsiveFontSizes } from '@material-ui/core';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core/styles'; //to avoid React strict warnings
 //context
 import themeReducer from './context-api/themeReducer';
 import Context from './context-api/context';

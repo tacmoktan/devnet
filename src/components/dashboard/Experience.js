@@ -1,47 +1,78 @@
 import React from 'react';
-import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { delExperience } from '../../redux/actions/profile';
 import { PropTypes } from 'prop-types';
+//styles
+import MUIDataTable from "mui-datatables";
 
 const Experience = ({ experience, delExperience }) => {
 
-    const experiences = experience.map(exp => (
-        <tr className="experience" key={exp._id}>
-            <td>
-                {exp.title}
-            </td>
-            <td>
-                {exp.company}
-            </td>
+    const columns = [{
+        name: "title",
+        label: "Title",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "company",
+        label: "Company",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "from",
+        label: "From",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    },
+    {
+        name: "to",
+        label: "To",
+        options: {
+            filter: true,
+            sort: true,
+        }
+    }]
+    const data = [];
+    const rowDataIds = [];
+    const handleRowDelete = rowId => delExperience(rowId)
 
-            <td>
-                <Moment date={exp.from} format="YYYY/MM/DD" />
-                {' - '}
-                {!exp.current ?
-                    <Moment date={exp.to} format="YYYY/MM/DD" /> : 'present'}
-            </td>
-            <td>
-                <button onClick={() => delExperience(exp._id)}>Delete</button>
-            </td>
-        </tr>
-    ));
+    experience.forEach(exp => {
+        let fromDate = (new Date(exp.from)).toDateString();
+        let toDate = exp.current ? 'present' : (new Date(exp.to)).toDateString();
+
+        rowDataIds.push(exp._id)
+
+        let row = {
+            title: exp.title, company: exp.company, from: fromDate, to: toDate
+        }
+        data.push(row)
+    })
+
+    const options = {
+        onRowsDelete: (rowsDeleted) => {
+            const idToDelete = rowsDeleted.data.map(d => rowDataIds[d.dataIndex]).join("")        //array of id to be deleted
+            handleRowDelete(idToDelete)
+            return false                    //to avoid deleting data before confirmation in dialog box
+        },
+        selectableRows: 'single'
+    }
+
+    const experienceTable = <MUIDataTable
+        title="Working Experience"
+        columns={columns}
+        data={data}
+        options={options}
+    />
 
     return (<section className="section-experiences">
-        <h1>Experience</h1>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Company</th>
-                    <th>Years</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {experiences}
-            </tbody>
-        </table>
+        {experienceTable}
     </section>)
 }
 

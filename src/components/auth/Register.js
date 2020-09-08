@@ -44,32 +44,30 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
     return (
         <div className="main-container" >
-            <div style={{ padding: '40px 0' }}>
-                <Paper>
-                    <Grid container direction="row">
-                        <Grid item xs className={formImage}>
+            <Paper >
+                <Grid container direction="row">
+                    <Grid item xs className={formImage}>
 
-                        </Grid>
-                        <Grid item xs className={formContainer}>
-                            <div>Create an Account</div>
-                            <form className="form" onSubmit={handleSubmit}>
-                                <TextField variant="outlined" className="input" type="text" name="name" label="Name" onChange={handleChange} required />
-                                <TextField variant="outlined" className="input" type="email" name="email" label="Email" onChange={handleChange} required />
-                                <TextField variant="outlined" className="input" type="password" name="password" label="Password" onChange={handleChange} required />
-                                <TextField variant="outlined" className="input" type="password" name="confirmPassword" label="Confirm password" onChange={handleChange} required />
-                                <Button variant="contained" color="secondary" className={btn} type="submit" value="Submit">
-                                    <span className={btnLabel}>Register</span>
-                                    <ArrowRightAltIcon />
-                                </Button>
-                            </form>
-                            <div>
-                                Already have an account?
-        <Link to="/login" className={externalLink} > <Typography color="primary">Sign In</Typography></Link>
-                            </div>
-                        </Grid>
                     </Grid>
-                </Paper>
-            </div>
+                    <Grid item xs className={formContainer}>
+                        <div>Create an Account</div>
+                        <form className="form" onSubmit={handleSubmit}>
+                            <TextField variant="outlined" className="input" type="text" name="name" label="Name" onChange={handleChange} required />
+                            <TextField variant="outlined" className="input" type="email" name="email" label="Email" onChange={handleChange} required />
+                            <TextField variant="outlined" className="input" type="password" name="password" label="Password" onChange={handleChange} required />
+                            <TextField variant="outlined" className="input" type="password" name="confirmPassword" label="Confirm password" onChange={handleChange} required />
+                            <Button variant="contained" color="secondary" className={btn} type="submit" value="Submit">
+                                <span className={btnLabel}>Register</span>
+                                <ArrowRightAltIcon />
+                            </Button>
+                        </form>
+                        <div>
+                            Already have an account?
+        <Link to="/login" className={externalLink} > <Typography color="primary">Sign In</Typography></Link>
+                        </div>
+                    </Grid>
+                </Grid>
+            </Paper>
         </div>)
 }
 

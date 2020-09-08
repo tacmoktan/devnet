@@ -6,7 +6,7 @@ import ProfileSkills from './ProfileSkills';
 import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
 import ProfileGithubRepos from './ProfileGithubRepos';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getProfileByUserId } from '../../redux/actions/profile';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -14,11 +14,18 @@ import { PropTypes } from 'prop-types';
 import { makeStyles, Button, Paper } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useButtonStyles } from '../../styles/buttons';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useProfileStyles = makeStyles(theme => ({
     singleProfileContainer: {
         display: 'grid',
         rowGap: '30px'
+    },
+    btnContainer: {
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        flexWrap: 'wrap',
+        rowGap:'10px'
     },
     profileDetails: {
         display: 'grid',
@@ -51,8 +58,8 @@ const useProfileStyles = makeStyles(theme => ({
 
 const Profile = ({ profile: { profile, loading }, getProfileByUserId, match, auth }) => {
 
-    const { singleProfileContainer, profileDetails, profileInfoBlock, educationExperience } = useProfileStyles();
-    const { btn, btnLabel } = useButtonStyles();
+    const { btnContainer, singleProfileContainer, profileDetails, profileInfoBlock, educationExperience } = useProfileStyles();
+    const { btn, editBtn, btnLabel } = useButtonStyles();
 
     useEffect(() => {
         getProfileByUserId(match.params.id);
@@ -62,16 +69,21 @@ const Profile = ({ profile: { profile, loading }, getProfileByUserId, match, aut
     return (
         (profile === null || loading) ? <Spinner /> :
             <div className="main-container">
-                <div className={`${singleProfileContainer} block-container`}>
-                    <Button variant="contained" color="secondary" component={RouterLink} to="/developers" className={btn}
-                        style={{
-                            borderRadius: 0,
-                            maxWidth: 285,
-                        }}
-                    >
-                        <ArrowBackIcon />
-                        <span className={btnLabel} >Back to developers</span>
-                    </Button>
+                <div className={singleProfileContainer}>
+                    <div className={btnContainer}>
+                        <Button variant="contained" color="secondary" component={Link} to="/developers" className={btn}
+                            style={{
+                                borderRadius: 0,
+                                maxWidth: 285,
+                            }}
+                        >
+                            <ArrowBackIcon />
+                            <span className={btnLabel} >Back to developers</span>
+                        </Button>
+                        {auth.user && (profile.user._id === auth.user._id)
+                            && <Button variant="contained" component={Link} to="/edit-profile" className={`${btn} ${editBtn}`}>Edit Profile <EditIcon /></Button>}
+
+                    </div>
                     <Paper className={profileDetails}>
                         <ProfilePicInfo {...profile} />
                         <div className={profileInfoBlock} >
@@ -88,8 +100,6 @@ const Profile = ({ profile: { profile, loading }, getProfileByUserId, match, aut
                     <Paper className={profileInfoBlock}>
                         {profile.github && <ProfileGithubRepos githubUsername={profile.github} />}
                     </Paper>
-                    {auth.user && (profile.user._id === auth.user._id)
-                        && <RouterLink to="/edit-profile" className="btn">Edit Profile</RouterLink>}
                 </div>
             </div>
     )

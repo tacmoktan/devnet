@@ -9,36 +9,56 @@ import Experience from './Experience';
 import Education from './Education';
 //action
 import { getCurrentProfile, delAccount } from '../../redux/actions/profile';
+//style
+import { Typography, makeStyles, Button } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { useButtonStyles } from '../../styles/buttons';
+
+const useDashboardStyles = makeStyles(theme => ({
+    dashboardContainer: {
+        display: 'grid',
+        rowGap: '60px'
+    }
+}))
 
 const Dashboard = ({ auth: { user }, profile: { profile, loading }, getCurrentProfile, delAccount }) => {
+
+    const { dashboardContainer } = useDashboardStyles();
+    const { btn, btnLabel, delBtn } = useButtonStyles();
 
     useEffect(() => {
         getCurrentProfile();
     }, [getCurrentProfile]);
-    
-    return (<>
-        <h1>Dashboard</h1>
-        Welcome <i> {user && user.name} </i> !!   <br />
-        {loading && profile === null ? <Spinner />
-            :
-            <>
-                {
-                    profile != null ?
-                        <>
-                            <DashboardActions />
-                            <Experience experience={profile.experience} />
-                            <Education education={profile.education} />
 
-                            <button className="btn btn-delete" onClick={() => delAccount()}>Delete My Account</button>
-                        </>
-                        :
-                        <div>
-                            You don't seem to have a profile. Please setup a profile
+    return (
+        <div className={`main-container ${dashboardContainer}`}>
+            <div>
+                <Typography variant="h4" >Welcome, </Typography>
+                <Typography variant="h1" color="primary">{user && user.name} </Typography>
+            </div>
+            {loading && profile === null ? <Spinner />
+                :
+                <>
+                    {
+                        profile != null ?
+                            <>
+                                <DashboardActions />
+                                <Experience experience={profile.experience} />
+                                <Education education={profile.education} />
+
+                                <Button className={`${btn} ${delBtn}`} onClick={() => delAccount()}>
+                                    <span className={btnLabel}>Delete Account</span> 
+                                    <DeleteIcon />
+                                </Button>
+                            </>
+                            :
+                            <div>
+                                You don't seem to have a profile. Please setup a profile
                         <Link to="/create-profile" className="create-profile btn">Create Profile</Link>
-                        </div>
-                }
-            </>}
-    </>)
+                            </div>
+                    }
+                </>}
+        </div>)
 }
 
 Dashboard.propType = {

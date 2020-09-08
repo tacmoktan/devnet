@@ -37,7 +37,7 @@ const Login = ({ login, isAuthenticated }) => {
             <Grid container
                 direction="row"
                 alignItems="center"
-                style={{ height: '700px' }}
+                style={{ height: '80vh' }}
             >
                 <Paper className={formAndImageContainer}>
                     <Grid container>

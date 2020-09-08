@@ -76,15 +76,11 @@ export const addExperience = (formData, history) => async dispatch => {
         history.push('/dashboard');
 
     } catch (err) {
-        const errors = err.response.data.errors;
-
-        if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
-
-        dispatch({
-            type: PROFILE_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
+        if (err.response)
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: { msg: err.response.statusText, status: err.response.status }
+            })
     }
 }
 
@@ -118,43 +114,45 @@ export const addEducation = (formData, history) => async dispatch => {
 
 //delete experience by id
 export const delExperience = id => async dispatch => {
-    try {
-        const res = await axios.delete(`/api/profile/experience/${id}`);
+    if (window.confirm("Do you want to delete your experience?")) {
+        try {
+            const res = await axios.delete(`/api/profile/experience/${id}`);
 
-        dispatch({
-            type: DEL_EXPERIENCE,
-            payload: res.data
-        })
+            dispatch({
+                type: DEL_EXPERIENCE,
+                payload: res.data
+            })
 
-        dispatch(setAlert('Experience removed', 'successs'));
+            dispatch(setAlert('Experience removed', 'successs'));
+        } catch (err) {
 
-    } catch (err) {
-
-        dispatch({
-            type: PROFILE_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: { msg: err.response.statusText, status: err.response.status }
+            })
+        }
     }
 }
 
 //delete education by id
 export const delEducation = id => async dispatch => {
+    if (window.confirm("Do you want to delete your education?")) {
+        try {
+            const res = await axios.delete(`/api/profile/education/${id}`);
 
-    try {
-        const res = await axios.delete(`/api/profile/education/${id}`);
+            dispatch({
+                type: DEL_EDUCATION,
+                payload: res.data
+            })
 
-        dispatch({
-            type: DEL_EDUCATION,
-            payload: res.data
-        })
+            dispatch(setAlert('Education removed', 'success'));
+        } catch (err) {
 
-        dispatch(setAlert('Education removed', 'success'));
-    } catch (err) {
-
-        dispatch({
-            type: PROFILE_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: { msg: err.response.statusText, status: err.response.status }
+            })
+        }
     }
 
 }
@@ -162,7 +160,7 @@ export const delEducation = id => async dispatch => {
 //delete account, profile, posts
 export const delAccount = () => async dispatch => {
 
-    if (window.confirm("You will DELETE your account permanently, there's no UNDO")) {          //ok = true
+    if (window.confirm("Do you want to DELETE your account permanently?")) {          //ok = true
         try {
             await axios.delete('/api/profile')
 
