@@ -4,8 +4,13 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCurrentProfile, addEducation } from '../../redux/actions/profile';
 import { PropTypes } from 'prop-types';
+import { useUpdateFormStyles } from './updateFormStyles';
+import { TextField, Checkbox, Button, Typography } from '@material-ui/core';
 
 const AddEducation = ({ getCurrentProfile, addEducation, history }) => {
+
+    const { inputContainer, input } = useUpdateFormStyles();
+
     const [formData, setFormData] = useState({
         school: '',
         degree: '',
@@ -37,30 +42,36 @@ const AddEducation = ({ getCurrentProfile, addEducation, history }) => {
         addEducation(formData, history);
     }
 
-    return (<>
+    return (<div className="main-container">
 
-        <h1>  Add Education </h1>
-        <i>* = required</i>
+        <Typography variant="h3">  Add Education </Typography>
+        
         <form className="add-experience-form" onSubmit={handleSubmit}>
-            <input type="text" className="input" name="school" placeholder="* School" value={school} onChange={handleChange} required />
-            <input type="text" className="input" name="degree" placeholder="* Degree" value={degree} onChange={handleChange} required />
+            <div className={inputContainer}>
+                <label>School</label>
+                <TextField variant="outlined" type="text" className={input} name="school" value={school} onChange={handleChange} required />
+            </div>
+            <div className={inputContainer}>
+                <label>Degree</label>
+                <TextField variant="outlined" type="text" className={input} name="degree" value={degree} onChange={handleChange} required />
+            </div>
 
-            <div>* From
-               <input type="date" className="input" name="from" value={from} onChange={handleChange} required />
+            <div className={inputContainer}>From
+               <TextField variant="outlined" type="date" className={input} name="from" value={from} onChange={handleChange} required />
             </div>
 
             <div> current
-                <input type="checkbox" className="input" name="current" value={current} onChange={onCheckBoxSelection} />
+                <Checkbox type="checkbox" className={input} name="current" value={current} onChange={onCheckBoxSelection} />
             </div>
 
-            <div>To
-                <input type="date" className="input" name="to" placeholder="To" value={to} onChange={handleChange}
+            <div className={inputContainer}>To
+                <TextField variant="outlined" type="date" className={input} name="to"  value={to} onChange={handleChange}
                     disabled={checkboxSelected ? 'disabled' : ''} />
             </div>
 
-            <input type="submit" className="input" />
+            <Button variant="outlined" type="submit" className="input">Add</Button>
         </form>
-    </>)
+    </div>)
 }
 
 

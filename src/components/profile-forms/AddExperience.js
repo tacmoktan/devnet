@@ -4,8 +4,12 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addExperience } from '../../redux/actions/profile';
 import { PropTypes } from 'prop-types';
+import { TextField, Checkbox, Button, Typography } from '@material-ui/core';
+import { useUpdateFormStyles } from './updateFormStyles';
 
 const AddExperience = ({ addExperience, history }) => {
+    const { inputContainer, input } = useUpdateFormStyles();
+
     const [formData, setFormData] = useState({
         title: '',
         company: '',
@@ -25,10 +29,10 @@ const AddExperience = ({ addExperience, history }) => {
 
     const onCheckBoxSelection = e => {
         setFormData({
-            ...formData, 
-            current: !current, 
+            ...formData,
+            current: !current,
             to: ''  //resetting property 'to' to initial state
-        });    
+        });
         setCheckboxSelected(!checkboxSelected);
     }
 
@@ -38,30 +42,36 @@ const AddExperience = ({ addExperience, history }) => {
         addExperience(formData, history);
     }
 
-    return (<>
+    return (<div className="main-container">
 
-        <h1>  Add Experience </h1>
-        <i>* = required</i>
+        <Typography variant="h3">  Add Experience </Typography>
         <form className="add-experience-form" onSubmit={handleSubmit}>
-            <input type="text" className="input" name="title" placeholder="* Title" value={title} onChange={handleChange} required />
-            <input type="text" className="input" name="company" placeholder="* Company" value={company} onChange={handleChange} required />
-
-            <div>* From
-               <input type="date" className="input" name="from" value={from} onChange={handleChange} required />
+            <div className={inputContainer}>
+                <label>Title</label>
+                <TextField variant="outlined" type="text" className={input} name="title" value={title} onChange={handleChange} required />
+            </div>
+            <div className={inputContainer}>
+                <label>Company</label>
+                <TextField variant="outlined" type="text" className={input} name="company" value={company} onChange={handleChange} required />
             </div>
 
-            <div> current job
-                <input type="checkbox" className="input" name="current" value={current} onChange={onCheckBoxSelection} />
+            <div className={inputContainer}>From
+               <TextField variant="outlined" type="date" className={input} name="from" value={from} onChange={handleChange} required />
             </div>
 
-            <div>To
-                <input type="date" className="input" name="to" placeholder="To" value={to} onChange={handleChange}
+            <div > 
+            current job
+                <Checkbox className={input} name="current" value={current} onChange={onCheckBoxSelection} />
+            </div>
+
+            <div className={inputContainer}>To
+                <TextField variant="outlined" type="date" className={input} name="to" value={to} onChange={handleChange}
                     disabled={checkboxSelected ? 'disabled' : ''} />
             </div>
 
-            <input type="submit" className="input" />
+            <Button variant="outlined" type="submit" className={input}>Add</Button>
         </form>
-    </>)
+    </div>)
 }
 
 

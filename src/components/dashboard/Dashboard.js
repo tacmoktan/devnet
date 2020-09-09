@@ -47,14 +47,14 @@ const Dashboard = ({ auth: { user }, profile: { profile, loading }, getCurrentPr
                                 <Education education={profile.education} />
 
                                 <Button className={`${btn} ${delBtn}`} onClick={() => delAccount()}>
-                                    <span className={btnLabel}>Delete Account</span> 
+                                    <span className={btnLabel}>Delete Account</span>
                                     <DeleteIcon />
                                 </Button>
                             </>
                             :
                             <div>
                                 You don't seem to have a profile. Please setup a profile
-                        <Link to="/create-profile" className="create-profile btn">Create Profile</Link>
+                        <Button variant="outlined" component={Link} to="/create-profile" className="create-profile btn">Create Profile</Button>
                             </div>
                     }
                 </>}

@@ -3,8 +3,12 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../redux/actions/profile';
 import { PropTypes } from 'prop-types';
+import { TextField, Button, Select, MenuItem, Typography, Paper, Switch } from '@material-ui/core';
+import { useUpdateFormStyles } from './updateFormStyles';
 
 const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentProfile, history }) => {
+
+    const { inputContainer, input, socialLinkContainer } = useUpdateFormStyles();
 
     const initialState = {
         bio: '',
@@ -69,44 +73,81 @@ const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentP
     const statusOptions = ['Frontend Developer', 'Backend Developer', 'Full Stack Developer', 'Mobile App Developer', 'Networking Administrator',
         'Database Administrator', 'QA Officer', 'SEO Engineer']
 
-    return <>
-        < i >* = required</i >
-        <form onSubmit={handleSubmit}>
-            <input type="text" className="input" name="bio" placeholder="Bio" value={bio} onChange={handleChange} />
-            <input type="text" className="input" name="address" placeholder="Address" value={address} onChange={handleChange} />
-            <input type="text" className="input" name="company" placeholder="Company" value={company} onChange={handleChange} />
-            <input type="text" className="input" name="website" placeholder="Website URL" value={website} onChange={handleChange} />
-            <input type="text" className="input" name="github" placeholder="Github Username" value={github} onChange={handleChange} />
+    return <div className="main-container">
+        <Typography variant="h6"> * = required</ Typography >
+        <Paper style={{ padding: 40 }}>
+            <form onSubmit={handleSubmit}>
+                <div className={inputContainer}>
+                    <label>bio</label>
+                    <TextField multiline rowsMax={6} variant="outlined" type="text" className={input}
+                        name="bio" value={bio} onChange={handleChange} />
+                </div>
+                <div className={inputContainer}>
+                    <label>address</label>
+                    <TextField variant="outlined" type="text" className={input} name="address" value={address} onChange={handleChange} />
+                </div>
 
-            <select className="input" defaultValue={status} name="status" onChange={handleChange} required>
-                <option className="option" value="" disabled >* Status</option>
+                <div className={inputContainer}>
+                    <label>company</label>
+                    <TextField variant="outlined" type="text" className={input} name="company" value={company} onChange={handleChange} />
+                </div>
+                <div className={inputContainer}>
+                    <label>website</label>
+                    <TextField variant="outlined" type="text" className={input} name="website" value={website} onChange={handleChange} />
+                </div>
+                <div className={inputContainer}>
+                    <label>github Username</label>
+                    <TextField variant="outlined" type="text" className={input} name="github" value={github} onChange={handleChange} />
+                </div>
 
-                {statusOptions.map((statusOption, i) =>
-                    <option key={`statusOption_` + i} className="option" value={statusOption}>{statusOption}</option>)
-                }
-            </select>
+                <div className={inputContainer}>
+                    <label>status*</label>
+                    <div className={input} >
 
-            <div className="skills">
-                <h5>Enter skills separated by commas <i>(e.g. HTML, CSS)</i></h5>
-                <input type="text" className="input" name="skills" placeholder="* Skills" value={skills} onChange={handleChange} required />
-            </div>
+                        <Select variant="outlined" value={status} name="status" onChange={handleChange} required>
+                            {statusOptions.map((statusOption, i) =>
+                                <MenuItem key={`statusOption_` + i} className="option" value={statusOption}>{statusOption}</MenuItem>)
+                            }
+                        </Select>
+                    </div>
+                </div>
 
-            <div onClick={handleShowSocialLinks} className="social-link-toggle btn">Add Social Links</div> (optional)
-            {showSocialLinks &&
-                (< div className="social-media">
-                    <input type="text" className="input" name="facebook" placeholder="facebook URL" value={facebook} onChange={handleChange} />
-                    <input type="text" className="input" name="linkedin" placeholder="linkedin URL" value={linkedin} onChange={handleChange} />
-                    <input type="text" className="input" name="youtube" placeholder="youtube URL" value={youtube} onChange={handleChange} />
-                </div>)
-            }
+                <div className={inputContainer}>
+                    <label>Enter skills separated by commas* <i>(e.g. HTML, CSS)</i></label>
+                    <TextField variant="outlined" type="text" className={input} name="skills" placeholder="* Skills" value={skills} onChange={handleChange} required />
+                </div>
 
-            <input type="submit" className="input" />
-            <Link to="/dashboard" className="btn">
-                Go Back
-            </Link>
+                <div>
+                    <p>Add social links (optional)</p>
+                    <Switch
+                        checked={showSocialLinks}
+                        onChange={handleShowSocialLinks}
+                        name="socialLinksSwitch"
+                        color="primary"
+                    />
 
-        </form>
-    </>
+                    {showSocialLinks &&
+                        (< div className={socialLinkContainer}>
+                            <label>facebook
+                        <TextField variant="outlined" type="text" className={input} name="facebook" value={facebook} onChange={handleChange} />
+                            </label>
+                            <label>linkedin
+                        <TextField variant="outlined" type="text" className={input} name="linkedin" value={linkedin} onChange={handleChange} />
+                            </label>
+                            <label>youtube
+                        <TextField variant="outlined" type="text" className={input} name="youtube" value={youtube} onChange={handleChange} />
+                            </label>
+                        </div>)
+                    }
+                </div>
+                <Button color="primary" variant="outlined" type="submit" className="btn">Submit</Button>
+                <Button variant="outlined" component={Link} to="/dashboard" className="btn">
+                    Go Back
+            </Button>
+
+            </form>
+        </Paper>
+    </div >
 }
 
 ProfileForm.propTypes = {
