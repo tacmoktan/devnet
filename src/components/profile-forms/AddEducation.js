@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { getCurrentProfile, addEducation } from '../../redux/actions/profile';
 import { PropTypes } from 'prop-types';
 import { useUpdateFormStyles } from './updateFormStyles';
-import { TextField, Checkbox, Button, Typography } from '@material-ui/core';
+import { TextField, Checkbox, Button, DialogTitle, DialogContent, Divider } from '@material-ui/core';
 
-const AddEducation = ({ getCurrentProfile, addEducation, history }) => {
+const AddEducation = ({ getCurrentProfile, addEducation, history, handleClose }) => {
 
-    const { inputContainer, input } = useUpdateFormStyles();
+    const { form, inputContainer, input } = useUpdateFormStyles();
 
     const [formData, setFormData] = useState({
         school: '',
@@ -42,36 +42,39 @@ const AddEducation = ({ getCurrentProfile, addEducation, history }) => {
         addEducation(formData, history);
     }
 
-    return (<div className="main-container">
+    return (
+        <>
+            <DialogTitle>  Add Education </DialogTitle>
+            <Divider />
+            <DialogContent>
+                <form className={form} onSubmit={handleSubmit}>
+                    <div className={inputContainer}>
+                        <label>School</label>
+                        <TextField variant="outlined" type="text" className={input} name="school" value={school} onChange={handleChange} required />
+                    </div>
+                    <div className={inputContainer}>
+                        <label>Degree</label>
+                        <TextField variant="outlined" type="text" className={input} name="degree" value={degree} onChange={handleChange} required />
+                    </div>
 
-        <Typography variant="h3">  Add Education </Typography>
-        
-        <form className="add-experience-form" onSubmit={handleSubmit}>
-            <div className={inputContainer}>
-                <label>School</label>
-                <TextField variant="outlined" type="text" className={input} name="school" value={school} onChange={handleChange} required />
-            </div>
-            <div className={inputContainer}>
-                <label>Degree</label>
-                <TextField variant="outlined" type="text" className={input} name="degree" value={degree} onChange={handleChange} required />
-            </div>
-
-            <div className={inputContainer}>From
+                    <div className={inputContainer}>From
                <TextField variant="outlined" type="date" className={input} name="from" value={from} onChange={handleChange} required />
-            </div>
+                    </div>
 
-            <div> current
+                    <div> current
                 <Checkbox type="checkbox" className={input} name="current" value={current} onChange={onCheckBoxSelection} />
-            </div>
+                    </div>
 
-            <div className={inputContainer}>To
-                <TextField variant="outlined" type="date" className={input} name="to"  value={to} onChange={handleChange}
-                    disabled={checkboxSelected ? 'disabled' : ''} />
-            </div>
+                    <div className={inputContainer}>To
+                <TextField variant="outlined" type="date" className={input} name="to" value={to} onChange={handleChange}
+                            disabled={checkboxSelected ? true : false} />
+                    </div>
 
-            <Button variant="outlined" type="submit" className="input">Add</Button>
-        </form>
-    </div>)
+                    <Button color="secondary" variant="contained" type="submit" className="input">Add</Button>
+                    <Button onClick={handleClose} variant="outlined" className="input">Cancel</Button>
+                </form>
+            </DialogContent>
+        </>)
 }
 
 

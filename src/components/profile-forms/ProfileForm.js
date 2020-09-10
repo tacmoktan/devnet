@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../redux/actions/profile';
 import { PropTypes } from 'prop-types';
-import { TextField, Button, Select, MenuItem, Typography, Paper, Switch } from '@material-ui/core';
+import { TextField, Button, Select, MenuItem, Switch, DialogTitle, Divider, DialogContent } from '@material-ui/core';
 import { useUpdateFormStyles } from './updateFormStyles';
 
-const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentProfile, history }) => {
+const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentProfile, history, handleClose }) => {
 
-    const { inputContainer, input, socialLinkContainer } = useUpdateFormStyles();
+    const { form, inputContainer, input, socialLinkContainer } = useUpdateFormStyles();
 
     const initialState = {
         bio: '',
@@ -73,10 +73,11 @@ const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentP
     const statusOptions = ['Frontend Developer', 'Backend Developer', 'Full Stack Developer', 'Mobile App Developer', 'Networking Administrator',
         'Database Administrator', 'QA Officer', 'SEO Engineer']
 
-    return <div className="main-container">
-        <Typography variant="h6"> * = required</ Typography >
-        <Paper style={{ padding: 40 }}>
-            <form onSubmit={handleSubmit}>
+    return (<>
+        <DialogTitle>Edit Profile</DialogTitle>
+        <Divider />
+        <DialogContent>
+            <form onSubmit={handleSubmit} className={form}>
                 <div className={inputContainer}>
                     <label>bio</label>
                     <TextField multiline rowsMax={6} variant="outlined" type="text" className={input}
@@ -140,14 +141,14 @@ const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentP
                         </div>)
                     }
                 </div>
-                <Button color="primary" variant="outlined" type="submit" className="btn">Submit</Button>
-                <Button variant="outlined" component={Link} to="/dashboard" className="btn">
-                    Go Back
+                <Button color="secondary" variant="contained" type="submit">Submit</Button>
+                <Button onClick={handleClose} variant="outlined">
+                    cancel
             </Button>
-
             </form>
-        </Paper>
-    </div >
+        </DialogContent>
+    </>
+    )
 }
 
 ProfileForm.propTypes = {

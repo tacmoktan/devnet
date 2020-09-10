@@ -1,6 +1,9 @@
 import { makeStyles } from "@material-ui/core";
 
 export const useUpdateFormStyles = makeStyles(theme => ({
+    form: {
+        padding:'30px 10px'
+    },
     inputContainer: {
         display: 'grid',
         alignItems: 'center',
