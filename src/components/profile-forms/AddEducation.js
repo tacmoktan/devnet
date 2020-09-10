@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 //redux
 import { connect } from 'react-redux';
-import { getCurrentProfile, addEducation } from '../../redux/actions/profile';
+import { addEducation } from '../../redux/actions/profile';
 import { PropTypes } from 'prop-types';
 import { useUpdateFormStyles } from './updateFormStyles';
 import { TextField, Checkbox, Button, DialogTitle, DialogContent, Divider } from '@material-ui/core';
 
-const AddEducation = ({ getCurrentProfile, addEducation, history, handleClose }) => {
+const AddEducation = ({ addEducation, history, handleClose }) => {
 
     const { form, inputContainer, input } = useUpdateFormStyles();
 
@@ -79,8 +79,7 @@ const AddEducation = ({ getCurrentProfile, addEducation, history, handleClose })
 
 
 AddEducation.propTypes = {
-    addEducation: PropTypes.func.isRequired,
-    getCurrentProfile: PropTypes.func.isRequired
+    addEducation: PropTypes.func.isRequired
 }
 
-export default connect(null, { getCurrentProfile, addEducation })(withRouter(AddEducation));
+export default connect(null, { addEducation })(withRouter(AddEducation));

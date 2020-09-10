@@ -22,7 +22,7 @@ export const getCurrentProfile = () => async dispatch => {
             const errors = err.response.data.errors;
 
             if (errors)
-                errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+                errors.forEach(error => dispatch(setAlert(error.msg, 'info')))
             
                 dispatch({
                 type: PROFILE_ERROR,
@@ -54,7 +54,7 @@ export const createProfile = (formData, history, editProfile = false) => async d
         const errors = err.response.data.errors;
 
         if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+            errors.forEach(error => dispatch(setAlert(error.msg, 'error')))
 
         dispatch({
             type: PROFILE_ERROR,
@@ -106,7 +106,7 @@ export const addEducation = (formData, history) => async dispatch => {
         const errors = err.response.data.errors;
 
         if (errors)
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+            errors.forEach(error => dispatch(setAlert(error.msg, 'error')))
 
         dispatch({
             type: PROFILE_ERROR,

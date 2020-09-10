@@ -31,6 +31,7 @@ const DashboardActions = () => {
     const handleClose = () => {
         setOpen(false);
     }
+    
     return (<>
         <div className={profileActionsContainer}>
             <Button onClick={() => handleClickOpen('editProfile')} name="editProfile" className={`${btn} ${editBtn} ${dashboardBtn}`} >

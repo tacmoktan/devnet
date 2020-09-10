@@ -7,11 +7,14 @@ export const useUpdateFormStyles = makeStyles(theme => ({
     inputContainer: {
         display: 'grid',
         alignItems: 'center',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        gridTemplateColumns:'minmax(250px, 25%) minmax(250px, 75%)',
+        [theme.breakpoints.down('sm')]:{
+            gridTemplateColumns:'auto'
+        }
     },
     input: {
         '& .MuiOutlinedInput-root': {
-            maxWidth: 600,
+            maxWidth: '100%',
             borderRadius: 5,
             width: '100%'
         },

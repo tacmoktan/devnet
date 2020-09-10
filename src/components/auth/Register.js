@@ -30,7 +30,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            setAlert('Password not matched', 'danger');
+            setAlert('Please enter matching passwords', 'error');
         }
         else {
             register({ name, email, password });

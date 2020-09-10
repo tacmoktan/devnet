@@ -64,7 +64,6 @@ const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentP
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(formData);
         createProfile(formData, history, profile ? true : false);
     }
 
@@ -74,7 +73,7 @@ const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentP
         'Database Administrator', 'QA Officer', 'SEO Engineer']
 
     return (<>
-        <DialogTitle>Edit Profile</DialogTitle>
+        <DialogTitle>Update Profile</DialogTitle>
         <Divider />
         <DialogContent>
             <form onSubmit={handleSubmit} className={form}>
@@ -115,7 +114,7 @@ const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentP
 
                 <div className={inputContainer}>
                     <label>Enter skills separated by commas* <i>(e.g. HTML, CSS)</i></label>
-                    <TextField variant="outlined" type="text" className={input} name="skills" placeholder="* Skills" value={skills} onChange={handleChange} required />
+                    <TextField variant="outlined" type="text" className={input} name="skills" value={skills} onChange={handleChange} required />
                 </div>
 
                 <div>
@@ -141,7 +140,7 @@ const ProfileForm = ({ profile: { profile, loading }, createProfile, getCurrentP
                         </div>)
                     }
                 </div>
-                <Button color="secondary" variant="contained" type="submit">Submit</Button>
+                <Button onClick={handleClose} color="secondary" variant="contained" type="submit">Submit</Button>
                 <Button onClick={handleClose} variant="outlined">
                     cancel
             </Button>

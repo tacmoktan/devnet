@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 //component
 import Spinner from '../layouts/Spinner/Spinner';
@@ -10,9 +9,10 @@ import Education from './Education';
 //action
 import { getCurrentProfile, delAccount } from '../../redux/actions/profile';
 //style
-import { Typography, makeStyles, Button } from '@material-ui/core';
+import { Typography, makeStyles, Button, Dialog } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useButtonStyles } from '../../styles/buttons';
+import ProfileForm from '../profile-forms/ProfileForm';
 
 const useDashboardStyles = makeStyles(theme => ({
     dashboardContainer: {
@@ -30,35 +30,45 @@ const Dashboard = ({ auth: { user }, profile: { profile, loading }, getCurrentPr
         getCurrentProfile();
     }, [getCurrentProfile]);
 
-    return (
-        <div className={`main-container ${dashboardContainer}`}>
-            <div>
-                <Typography variant="h4" >Welcome, </Typography>
-                <Typography variant="h1" color="primary">{user && user.name} </Typography>
-            </div>
-            {loading && profile === null ? <Spinner />
-                :
-                <>
-                    {
-                        profile != null ?
-                            <>
-                                <DashboardActions />
-                                <Experience experience={profile.experience} />
-                                <Education education={profile.education} />
+    //dialog controls
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
-                                <Button className={`${btn} ${delBtn}`} onClick={() => delAccount()}>
-                                    <span className={btnLabel}>Delete Account</span>
-                                    <DeleteIcon />
-                                </Button>
-                            </>
-                            :
-                            <div>
-                                You don't seem to have a profile. Please setup a profile
-                        <Button variant="outlined" component={Link} to="/create-profile" className="create-profile btn">Create Profile</Button>
-                            </div>
-                    }
-                </>}
-        </div>)
+    return (
+        <>
+            <div className={`main-container ${dashboardContainer}`}>
+                <div>
+                    <Typography variant="h4" >Welcome, </Typography>
+                    <Typography variant="h1" color="primary">{user && user.name} </Typography>
+                </div>
+                {loading && profile === null ? <Spinner />
+                    :
+                    <>
+                        {
+                            profile != null ?
+                                <>
+                                    <DashboardActions />
+                                    <Experience experience={profile.experience} />
+                                    <Education education={profile.education} />
+
+                                    <Button className={`${btn} ${delBtn}`} onClick={() => delAccount()}>
+                                        <span className={btnLabel}>Delete Account</span>
+                                        <DeleteIcon />
+                                    </Button>
+                                </>
+                                :
+                                <>
+                                    You don't seem to have a profile.
+                                <Button variant="outlined" onClick={handleClickOpen} >Create Profile</Button>
+                                </>
+                        }
+                    </>}
+            </div>
+            <Dialog maxWidth="md" fullWidth={true} onClose={handleClose} open={open}>
+                <ProfileForm handleClose={handleClose} />
+            </Dialog>
+        </>)
 }
 
 Dashboard.propType = {
