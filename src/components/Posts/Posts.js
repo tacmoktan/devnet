@@ -7,6 +7,8 @@ import PostForm from '../post-forms/PostForm';
 
 import { getPosts } from '../../redux/actions/post'
 import { PropTypes } from 'prop-types';
+import { Divider } from '@material-ui/core';
+
 
 
 const Posts = ({ getPosts, post: { posts, loading } }) => {
@@ -15,14 +17,14 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
         getPosts();
     }, [getPosts])
 
-    return (<>
+    return (<div className="main-container">
         <PostForm />
         {posts === null || loading ? <Spinner /> :
-            <div className="posts">
+            <div className="posts" style={{ display: 'grid', rowGap: '20px', margin:'20px 0' }}>
                 {posts.map(post => <PostItem post={post} key={post._id} />)}
             </div>
         }
-    </>)
+    </div>)
 }
 
 Posts.propTypes = {

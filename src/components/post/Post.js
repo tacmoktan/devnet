@@ -17,20 +17,23 @@ const Post = ({ post: { post, loading }, getPost, match }) => {
     }, [getPost, match.params.id]);
 
     return (
-        post === null || loading ? <Spinner /> :
-            <div className="post">
-                <Link to="/posts" className="btn"> Back to posts</Link>
-                <PostItem post={post} showAction={false} />
+        <div className="main-container">
+            {post === null || loading ? <Spinner /> :
+                <div className="post">
+                    <Link to="/posts" className="btn"> Back to posts</Link>
+                    <PostItem post={post} showAction={false} />
 
-                <CommentForm post={post} />
+                    <CommentForm post={post} />
 
-                {post.comments &&
-                    <div className="comment-section">
-                        {post.comments.map(comment =>
-                            <Comment postId={post._id} comment={comment} key={comment._id} />)}
-                    </div>
-                }
-            </div>
+                    {post.comments &&
+                        <div className="comment-section">
+                            {post.comments.map(comment =>
+                                <Comment postId={post._id} comment={comment} key={comment._id} />)}
+                        </div>
+                    }
+                </div>
+            }
+        </div>
     )
 }
 

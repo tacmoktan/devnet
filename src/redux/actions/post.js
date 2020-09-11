@@ -12,11 +12,12 @@ export const getPosts = () => async dispatch => {
         });
 
     } catch (err) {
-
-        dispatch({
-            type: POST_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
+        if (err.response) {
+            dispatch({
+                type: POST_ERROR,
+                payload: { msg: err.response.statusText, status: err.response.status }
+            })
+        }
     }
 }
 
@@ -31,11 +32,16 @@ export const addLike = postId => async dispatch => {
         });
 
     } catch (err) {
+        if (err.response) {
+            const errors = err.response.data.errors;
+            if(errors)
+                errors.forEach(error => dispatch(setAlert(error.msg, 'info')));
 
-        dispatch({
-            type: POST_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
+            dispatch({
+                type: POST_ERROR,
+                payload: { msg: err.response.statusText, status: err.response.status }
+            })
+        }
     }
 }
 
@@ -50,11 +56,16 @@ export const removeLike = postId => async dispatch => {
         });
 
     } catch (err) {
+        if (err.response) {
+            const errors = err.response.data.errors;
+            if (errors)
+                errors.forEach(error => dispatch(setAlert(error.msg, 'info')));
 
-        dispatch({
-            type: POST_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
+            dispatch({
+                type: POST_ERROR,
+                payload: { msg: err.response.statusText, status: err.response.status }
+            })
+        }
     }
 }
 
@@ -86,14 +97,17 @@ export const createPost = text => async dispatch => {
             type: ADD_POST,
             payload: res.data
         })
-        
+
         dispatch(setAlert('Post created', 'success'));
 
     } catch (err) {
-        dispatch({
-            type: POST_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
+        if (err.response) {
+
+            dispatch({
+                type: POST_ERROR,
+                payload: { msg: err.response.statusText, status: err.response.status }
+            })
+        }
     }
 }
 

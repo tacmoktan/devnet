@@ -11,7 +11,6 @@ import { setAuthToken } from './redux/utils/setAuthToken';
 import { loadUser } from './redux/actions/auth';
 import { ThemeProvider, CssBaseline, responsiveFontSizes } from '@material-ui/core';
 import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core/styles'; //to avoid React strict warnings
-import { SnackbarProvider } from 'notistack';
 //context
 import themeReducer from './context-api/themeReducer';
 import Context from './context-api/context';
@@ -90,7 +89,6 @@ function App() {
 
           <ThemeProvider theme={myTheme}>
             <CssBaseline />
-            <SnackbarProvider maxSnack={3}>
               <div className="App">
                 <Navbar />
                 <Switch>
@@ -98,7 +96,6 @@ function App() {
                   <Routes />
                 </Switch>
               </div>
-            </SnackbarProvider>
           </ThemeProvider>
 
         </Context.Provider>
