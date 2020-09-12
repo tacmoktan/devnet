@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, makeStyles, Typography } from '@material-ui/core';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import { useButtonStyles } from '../../styles/buttons';
 
 const useProfileInfosStyles = makeStyles(theme => ({
     bioWebsite: {
@@ -35,7 +34,6 @@ const useProfileInfosStyles = makeStyles(theme => ({
 
 const ProfileInfos = ({ bio, website, social }) => {
     const { bioWebsite, bioBlock, quote, bioLabel } = useProfileInfosStyles();
-    const { btn, btnLabel } = useButtonStyles();
 
     return (
         <div className={bioWebsite}>
@@ -49,9 +47,9 @@ const ProfileInfos = ({ bio, website, social }) => {
             {
                 website &&
                 <a href={website} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outlined" color="primary" className={btn}  >
-                        <span className={btnLabel} style={{ textTransform: 'capitalize', fontFamily: 'avenir' }}>View Website</span>
-                        <OpenInNewIcon />
+                    <Button variant="outlined" color="primary" endIcon={<OpenInNewIcon />} >
+                        <span style={{ textTransform: 'capitalize', fontFamily: 'avenir' }}>View Website</span>
+
                     </Button>
                 </a>
             }

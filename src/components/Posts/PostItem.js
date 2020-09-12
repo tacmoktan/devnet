@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../redux/actions/post';
 import { PropTypes } from 'prop-types';
-import { makeStyles, Paper, Typography, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { makeStyles, Paper, Typography, Button } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const usePostItemStyles = makeStyles(theme => ({
     post: {
@@ -39,43 +40,48 @@ const usePostItemStyles = makeStyles(theme => ({
         '& .MuiSvgIcon-root': {
             fontSize: '0.8rem'
         }
+    },
+    postActions: {
+        display: 'flex',
+        '& div,a': {
+            border: `1px solid ${theme.palette.divider}`,
+            padding: 5
+        }
+    },
+    likeContainer: {
+        display: 'flex',
+        width: 'fit-content',
+        '& svg': {
+            cursor: 'pointer'
+        }
+    },
+    discussionBtn: {
+        color: theme.palette.text.primary
     }
 }))
 
 const PostItem = ({
+    isPostLiked,
     post: { _id, name, user, avatar, likes, comments, date, text },
     auth, addLike, removeLike, deletePost,
     showAction }) => {
 
-    const { post, postProfilePic, postContent, postDate } = usePostItemStyles();
-    //array of liked userIds
-    const likedUserIds = likes.map(like => like.user);
+    const { post, postProfilePic, postContent, postDate, postActions, likeContainer, discussionBtn } = usePostItemStyles();
 
     //like control
-    const [like, setLike] = useState(false);
-    let alreadyLiked = false;
+    const [like, setLike] = useState(isPostLiked);
+    //changing state before rendering
+    useMemo(() => setLike(isPostLiked), [isPostLiked])
 
-    if (auth.user && (likedUserIds.includes(auth.user._id))) {
-        alreadyLiked = true
-        console.log(likedUserIds, auth.user._id)
+
+    const handleAddLike = () => {
+        setLike(true);
+        addLike(_id);
     }
 
-
-    const handleChange = () => {
-        setLike(!like);
-
-        console.log('like fn', like)
-
-        if (like) {
-            addLike(_id)
-            console.log('add')
-        }
-        else {
-            removeLike(_id)
-            console.log('remove')
-        }
-        alreadyLiked = like;
-        console.log('already liked', alreadyLiked)
+    const handleRemoveLike = () => {
+        setLike(false);
+        removeLike(_id);
     }
 
 
@@ -93,21 +99,18 @@ const PostItem = ({
                 <div>{text}</div>
 
                 {showAction &&
-                    <div className="post-actions">
-                        <Button onClick={() => addLike(_id)}>Like {likes.length > 0 && likes.length} </Button>
-                        <Button onClick={() => removeLike(_id)}>Unlike</Button>
-                        <FormControlLabel
-                            control={
-                                <Checkbox icon={alreadyLiked ?
-                                    <FavoriteIcon color="primary" fontSize="small" /> :
-                                    <FavoriteBorderIcon color="primary" fontSize="small" />}
-                                    checkedIcon={<FavoriteBorderIcon color="primary" fontSize="small" />}
-                                    onChange={handleChange} />}
-                            title='like'
-                        />
-                        <Link className="btn" to={`/post/${_id}`}>Discussion {comments.length > 0 && comments.length}</Link>
+                    <div className={postActions}>
+                        {/* <Button onClick={() => addLike(_id)}>Like {likes.length > 0 && likes.length} </Button>
+                        <Button onClick={() => removeLike(_id)}>Unlike</Button> */}
+
+                        <div className={likeContainer}>
+                            {like ? <FavoriteIcon color="primary" fontSize="small" onClick={handleRemoveLike} /> :
+                                <FavoriteBorderIcon color="primary" fontSize="small" onClick={handleAddLike} />}
+                            {likes.length > 0 && likes.length}
+                        </div>
+                        <Link className={discussionBtn} to={`/post/${_id}`}>Discussion {comments.length > 0 && `(${comments.length})`}</Link>
                         {
-                            auth.user && (auth.user._id === user) && <button onClick={() => deletePost(_id)}>Delete</button>
+                            auth.user && (auth.user._id === user) && <Button onClick={() => deletePost(_id)} endIcon={<DeleteIcon />}>Delete </Button>
                         }
                     </div>
                 }

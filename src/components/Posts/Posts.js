@@ -7,11 +7,10 @@ import PostForm from '../post-forms/PostForm';
 
 import { getPosts } from '../../redux/actions/post'
 import { PropTypes } from 'prop-types';
-import { Divider } from '@material-ui/core';
 
 
 
-const Posts = ({ getPosts, post: { posts, loading } }) => {
+const Posts = ({ getPosts, post: { posts, loading }, auth }) => {
 
     useEffect(() => {
         getPosts();
@@ -20,8 +19,14 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
     return (<div className="main-container">
         <PostForm />
         {posts === null || loading ? <Spinner /> :
-            <div className="posts" style={{ display: 'grid', rowGap: '20px', margin:'20px 0' }}>
-                {posts.map(post => <PostItem post={post} key={post._id} />)}
+            <div className="posts" style={{ display: 'grid', rowGap: '20px', margin: '20px 0' }}>
+                {posts.map((post, i) => {
+                    //to check if current user has already liked the post or not
+                    const likedUserIds = post.likes.map(like => like.user);
+                    let isPostLiked = auth.user && (likedUserIds.includes(auth.user._id)) ? true : false;
+
+                    return <PostItem post={post} key={post._id} isPostLiked={isPostLiked} />
+                })}
             </div>
         }
     </div>)
@@ -33,7 +38,8 @@ Posts.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    post: state.post
+    post: state.post,
+    auth: state.auth
 })
 
 export default connect(mapStateToProps, { getPosts })(Posts);

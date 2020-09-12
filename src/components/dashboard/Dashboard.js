@@ -52,9 +52,8 @@ const Dashboard = ({ auth: { user }, profile: { profile, loading }, getCurrentPr
                                     <Experience experience={profile.experience} />
                                     <Education education={profile.education} />
 
-                                    <Button className={`${btn} ${delBtn}`} onClick={() => delAccount()}>
+                                    <Button className={`${btn} ${delBtn}`} onClick={() => delAccount()} endIcon={<DeleteIcon />}>
                                         <span className={btnLabel}>Delete Account</span>
-                                        <DeleteIcon />
                                     </Button>
                                 </>
                                 :

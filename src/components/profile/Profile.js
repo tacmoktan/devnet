@@ -60,7 +60,7 @@ const useProfileStyles = makeStyles(theme => ({
 const Profile = ({ profile: { profile, loading }, getProfileByUserId, match, auth }) => {
 
     const { btnContainer, singleProfileContainer, profileDetails, profileInfoBlock, educationExperience } = useProfileStyles();
-    const { btn, editBtn, btnLabel } = useButtonStyles();
+    const { editBtn } = useButtonStyles();
 
     useEffect(() => {
         getProfileByUserId(match.params.id);
@@ -78,17 +78,17 @@ const Profile = ({ profile: { profile, loading }, getProfileByUserId, match, aut
                 <div className="main-container">
                     <div className={singleProfileContainer}>
                         <div className={btnContainer}>
-                            <Button variant="contained" color="secondary" component={Link} to="/developers" className={btn}
+                            <Button variant="contained" color="secondary" component={Link} to="/developers" 
+                                startIcon={<ArrowBackIcon />}
                                 style={{
                                     borderRadius: 0,
                                     maxWidth: 285,
                                 }}
                             >
-                                <ArrowBackIcon />
-                                <span className={btnLabel} >Back to developers</span>
+                                Back to developers
                             </Button>
                             {auth.user && (profile.user._id === auth.user._id)
-                                && <Button onClick={handleClickOpen} variant="contained" className={`${btn} ${editBtn}`}>Edit Profile <EditIcon /></Button>}
+                                && <Button onClick={handleClickOpen} variant="contained" className={`${editBtn}`} endIcon={<EditIcon />}>Edit Profile </Button>}
 
                         </div>
                         <Paper className={profileDetails}>

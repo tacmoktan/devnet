@@ -70,8 +70,8 @@ const AddExperience = ({ addExperience, history, handleClose }) => {
                         disabled={checkboxSelected ? true : false} />
                 </div>
 
-                <Button color="secondary" variant="contained" type="submit" className={input}>Add</Button>
-                <Button onClick={handleClose} variant="outlined" className={input}> Cancel</Button>
+                <Button color="secondary" variant="contained" type="submit">Add</Button>
+                <Button onClick={handleClose} variant="outlined"> Cancel</Button>
             </form>
         </DialogContent>
     </>

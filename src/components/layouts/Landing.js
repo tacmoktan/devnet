@@ -7,8 +7,6 @@ import onlineFriend from '../../assets/hero-images/online_friends.png';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button } from '@material-ui/core';
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
-import { useButtonStyles } from '../../styles/buttons';
-
 
 const Landing = ({ isAuthenticated }) => {
 
@@ -29,7 +27,6 @@ const Landing = ({ isAuthenticated }) => {
     }));
 
     const { landingHeroImage, landingTextContainer, landingTitle, landingTextDescription } = useLandingStyles();
-    const { btn, btnLabel } = useButtonStyles();
 
     if (isAuthenticated)
         return <Redirect to='/posts' />
@@ -49,11 +46,8 @@ const Landing = ({ isAuthenticated }) => {
                         <Typography variant="h1" color="secondary" >Ideas.</Typography>
                     </div>
                     <Typography className={landingTextDescription}>Connect with professionals of IT industry, share posts, discuss ideas and grow your circle.</Typography>
-                    <Button variant="contained" color="secondary" component={RouterLink} to="/login" className={btn}>
-                        <span className={btnLabel}>
-                            GET STARTED
-                        </span>
-                        <DoubleArrowIcon />
+                    <Button variant="contained" color="secondary" component={RouterLink} to="/login" endIcon={<DoubleArrowIcon />}>
+                        GET STARTED
                     </Button>
                 </Grid>
 
