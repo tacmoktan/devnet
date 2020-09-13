@@ -35,7 +35,6 @@ const Login = ({ login, isAuthenticated }) => {
             <Grid container
                 direction="row"
                 alignItems="center"
-                style={{ height: '80vh' }}
             >
                 <Paper className={formAndImageContainer}>
                     <Grid container>
@@ -49,7 +48,7 @@ const Login = ({ login, isAuthenticated }) => {
                                 <TextField variant="outlined" type="email" name="email" label="Email" onChange={handleChange} required />
                                 <TextField variant="outlined" type="password" name="password" label="Password" onChange={handleChange} required />
                                 <Button variant="contained" color="secondary" type="submit" name="Submit" endIcon={<ArrowRightAltIcon />}>
-                                   Login
+                                    Login
                                 </Button>
                             </form>
                             <div className="form-redirect">

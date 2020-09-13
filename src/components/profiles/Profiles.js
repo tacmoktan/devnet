@@ -37,7 +37,7 @@ const Profiles = ({ profile: { profiles, loading, error }, getAllProfiles }) => 
 
     return (
         <div className="main-container">
-            <Typography variant="h1" color="secondary">IT Professionals</Typography>
+            <Typography variant="h1" color="secondary"> Developers</Typography>
             <div className={profilesContainer}>
                 {profileBlocks}
             </div>

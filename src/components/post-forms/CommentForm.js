@@ -23,7 +23,7 @@ const CommentForm = ({ post: { _id }, addComment }) => {
     return (
         <form className={commentForm} onSubmit={handleSubmit}>
             <TextField variant="outlined" multiline className={commentTextField}
-                placeholder="Write a comment..." value={comment.text}
+                placeholder="Write a comment..." value={comment.text}  
                 onChange={e => setComment({ text: e.target.value })} required />
             <Button type="submit" variant="contained" color="secondary" className={postBtn}>Comment</Button>
         </form >

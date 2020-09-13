@@ -3,7 +3,7 @@ import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { delComment } from '../../redux/actions/post';
 import { PropTypes } from 'prop-types';
-import { Button, makeStyles, Paper } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -25,7 +25,7 @@ const useCommentStyles = makeStyles(theme => ({
     },
     commentContainer: {
         width: '100%',
-        display:'grid',
+        display: 'grid',
         rowGap: '5px'
     },
     nameDate: {
