@@ -9,6 +9,8 @@ import Spinner from '../layouts/Spinner/Spinner';
 
 import { getPost } from '../../redux/actions/post';
 import { PropTypes } from 'prop-types';
+import { Button, Paper } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const Post = ({ post: { post, loading }, getPost, match }) => {
 
@@ -20,16 +22,19 @@ const Post = ({ post: { post, loading }, getPost, match }) => {
         <div className="main-container">
             {post === null || loading ? <Spinner /> :
                 <div className="post">
-                    <Link to="/posts" className="btn"> Back to posts</Link>
+                    <Button variant="contained" color="secondary" component={Link} to="/posts"
+                        style={{ borderRadius: 0 }} startIcon={<ArrowBackIcon />}>
+                        Back to posts
+                    </Button>
                     <PostItem post={post} showAction={false} />
 
                     <CommentForm post={post} />
 
                     {post.comments &&
-                        <div className="comment-section">
+                        <Paper className="comment-section">
                             {post.comments.map(comment =>
                                 <Comment postId={post._id} comment={comment} key={comment._id} />)}
-                        </div>
+                        </Paper>
                     }
                 </div>
             }

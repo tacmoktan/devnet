@@ -43,9 +43,17 @@ const usePostItemStyles = makeStyles(theme => ({
     },
     postActions: {
         display: 'flex',
-        '& div,a': {
+        alignItems:'center',
+        '& div, a, button': {
             border: `1px solid ${theme.palette.divider}`,
-            padding: 5
+            padding:5,
+            '&:hover': {
+                borderColor: theme.palette.text.secondary,
+            }
+        },
+        '& button':{
+            padding:3,
+            borderRadius: 0
         }
     },
     likeContainer: {
@@ -55,7 +63,7 @@ const usePostItemStyles = makeStyles(theme => ({
             cursor: 'pointer'
         }
     },
-    discussionBtn: {
+    discussionLink: {
         color: theme.palette.text.primary
     }
 }))
@@ -66,7 +74,7 @@ const PostItem = ({
     auth, addLike, removeLike, deletePost,
     showAction }) => {
 
-    const { post, postProfilePic, postContent, postDate, postActions, likeContainer, discussionBtn } = usePostItemStyles();
+    const { post, postProfilePic, postContent, postDate, postActions, likeContainer, discussionLink } = usePostItemStyles();
 
     //like control
     const [like, setLike] = useState(isPostLiked);
@@ -92,7 +100,7 @@ const PostItem = ({
 
             <div className={postContent}>
                 <div>
-                    <Typography color="secondary">{name}</Typography>
+                    <Typography style={{ fontWeight: 'bold' }}>{name}</Typography>
                     <p className={postDate}>  <Moment fromNow>{date}</Moment> <AccessTimeIcon /> </p>
                 </div>
 
@@ -103,14 +111,17 @@ const PostItem = ({
                         {/* <Button onClick={() => addLike(_id)}>Like {likes.length > 0 && likes.length} </Button>
                         <Button onClick={() => removeLike(_id)}>Unlike</Button> */}
 
-                        <div className={likeContainer}>
+                        <div className={likeContainer} title={like ? "unlike" : "like"}>
                             {like ? <FavoriteIcon color="primary" fontSize="small" onClick={handleRemoveLike} /> :
                                 <FavoriteBorderIcon color="primary" fontSize="small" onClick={handleAddLike} />}
                             {likes.length > 0 && likes.length}
                         </div>
-                        <Link className={discussionBtn} to={`/post/${_id}`}>Discussion {comments.length > 0 && `(${comments.length})`}</Link>
+                        <Link className={discussionLink} to={`/post/${_id}`}>Discussion {comments.length > 0 && `(${comments.length})`}</Link>
                         {
-                            auth.user && (auth.user._id === user) && <Button onClick={() => deletePost(_id)} endIcon={<DeleteIcon />}>Delete </Button>
+                            auth.user && (auth.user._id === user) &&
+                            <Button title="Delete post" onClick={() => deletePost(_id)}>
+                                <DeleteIcon color="error" />
+                            </Button>
                         }
                     </div>
                 }

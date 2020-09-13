@@ -3,8 +3,12 @@ import { addComment } from '../../redux/actions/post';
 
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import { Button, TextField } from '@material-ui/core';
+import { usePostFormStyles } from './postFormStyles';
+
 
 const CommentForm = ({ post: { _id }, addComment }) => {
+    const { commentForm, commentTextField, postBtn,  } = usePostFormStyles();
 
     const [comment, setComment] = useState({
         text: ''
@@ -17,17 +21,18 @@ const CommentForm = ({ post: { _id }, addComment }) => {
     }
 
     return (
-        <form className="comment-form" onSubmit={handleSubmit}>
-            <textarea className="comment-input" placeholder="Write a comment" value={comment.text}
-                onChange={e => setComment({ text: e.target.value })}></textarea>
-            <input type="submit" value="post" className="input-submit" />
+        <form className={commentForm} onSubmit={handleSubmit}>
+            <TextField variant="outlined" multiline className={commentTextField}
+                placeholder="Write a comment..." value={comment.text}
+                onChange={e => setComment({ text: e.target.value })} required />
+            <Button type="submit" variant="contained" color="secondary" className={postBtn}>Comment</Button>
         </form >
     )
 }
 
 CommentForm.propTypes = {
     addComment: PropTypes.func.isRequired,
-    post:PropTypes.object.isRequired
+    post: PropTypes.object.isRequired
 }
 
 export default connect(null, { addComment })(CommentForm);

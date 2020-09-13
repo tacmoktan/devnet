@@ -70,7 +70,6 @@ export const login = ({ email, password }) => async dispatch => {
         dispatch(loadUser());
 
     } catch (err) {
-
         if (err.response) {
             const errors = err.response.data.errors;
 

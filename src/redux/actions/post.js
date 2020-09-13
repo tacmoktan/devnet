@@ -34,7 +34,7 @@ export const addLike = postId => async dispatch => {
     } catch (err) {
         if (err.response) {
             const errors = err.response.data.errors;
-            if(errors)
+            if (errors)
                 errors.forEach(error => dispatch(setAlert(error.msg, 'info')));
 
             dispatch({
@@ -71,21 +71,23 @@ export const removeLike = postId => async dispatch => {
 
 //delete a post by id
 export const deletePost = postId => async dispatch => {
-    try {
-        const res = await axios.delete(`/api/posts/${postId}`);
+    if (window.confirm("Do you want to delete your post?")) {
+        try {
+            const res = await axios.delete(`/api/posts/${postId}`);
 
-        dispatch({
-            type: DEL_POST,
-            payload: { id: postId, msg: res.data }
-        });
+            dispatch({
+                type: DEL_POST,
+                payload: { id: postId, msg: res.data }
+            });
 
 
-    } catch (err) {
+        } catch (err) {
 
-        dispatch({
-            type: POST_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
+            dispatch({
+                type: POST_ERROR,
+                payload: { msg: err.response.statusText, status: err.response.status }
+            })
+        }
     }
 }
 
@@ -121,10 +123,13 @@ export const getPost = postId => async dispatch => {
             payload: res.data
         })
     } catch (err) {
-        dispatch({
-            type: POST_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
+        if (err.response) {
+
+            dispatch({
+                type: POST_ERROR,
+                payload: { msg: err.response.statusText, status: err.response.status }
+            })
+        }
     }
 }
 
@@ -147,20 +152,23 @@ export const addComment = (postId, body) => async dispatch => {
 
 //delete a comment
 export const delComment = (postId, commentId) => async dispatch => {
-    try {
-        await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
+    if (window.confirm("Do you want to delete your comment?")) {
 
-        dispatch({
-            type: DEL_COMMENT,
-            payload: commentId
-        })
+        try {
+            await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
 
-        dispatch(setAlert('Comment Deleted', 'success'));
+            dispatch({
+                type: DEL_COMMENT,
+                payload: commentId
+            })
 
-    } catch (err) {
-        dispatch({
-            type: POST_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        })
+            dispatch(setAlert('Comment Deleted', 'success'));
+
+        } catch (err) {
+            dispatch({
+                type: POST_ERROR,
+                payload: { msg: err.response.statusText, status: err.response.status }
+            })
+        }
     }
 }
