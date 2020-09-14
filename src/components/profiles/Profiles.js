@@ -7,8 +7,9 @@ import { getAllProfiles } from '../../redux/actions/profile'
 import { PropTypes } from 'prop-types';
 //styles
 import { Typography, makeStyles } from '@material-ui/core';
+import useHeroStyles from '../../styles/heroImageStyles';
 
-const useProfileStyles = makeStyles(() => ({
+const useProfileStyles = makeStyles(theme => ({
     profilesContainer: {
         display: 'grid',
         justifyContent: 'space-between',
@@ -24,6 +25,7 @@ const useProfileStyles = makeStyles(() => ({
 const Profiles = ({ profile: { profiles, loading, error }, getAllProfiles }) => {
 
     const { profilesContainer } = useProfileStyles();
+    const { heroImageTitle } = useHeroStyles();
 
     useEffect(() => {
         getAllProfiles();
@@ -36,12 +38,17 @@ const Profiles = ({ profile: { profiles, loading, error }, getAllProfiles }) => 
     )
 
     return (
-        <div className="main-container">
-            <Typography variant="h1" color="secondary"> Developers</Typography>
-            <div className={profilesContainer}>
-                {profileBlocks}
+        <>
+            <div className={heroImageTitle}>
+                <Typography variant="h1" color="secondary" > Professional </Typography>
+                <Typography variant="h1" color="primary" > Developers </Typography>
             </div>
-        </div>)
+            <div className="main-container">
+                <div className={profilesContainer}>
+                    {profileBlocks}
+                </div>
+            </div>
+        </>)
 }
 
 Profiles.propTypes = {

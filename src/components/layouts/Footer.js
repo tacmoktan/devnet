@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import YouTubeIcon from '@material-ui/icons/YouTube';
+import { Link } from 'react-router-dom';
 
 const useFooterStyles = makeStyles(theme => ({
     footer: {
@@ -49,7 +50,6 @@ const useFooterStyles = makeStyles(theme => ({
         position: 'relative',
         marginTop: 25,
         paddingTop: 25,
-        color: theme.palette.secondary.main,
         fontWeight:'bold',
         '&::before': {
             content: '""',
@@ -69,10 +69,9 @@ const Footer = () => {
     return (
         <>
             <div className={footer}>
-                <div className={logoContainer}>
-
+                <Link to="/" className={logoContainer}>
                     <img src={logoPng} alt="devnet logo" className={footerLogo} />
-                </div>
+                </Link>
                 <div className={socialLinksContainer}>
                     <a href='https://www.linkedin.com/' target="_blank" rel="noopener noreferrer">
                         <LinkedInIcon />

@@ -8,7 +8,7 @@ import { usePostFormStyles } from './postFormStyles';
 
 
 const CommentForm = ({ post: { _id }, addComment }) => {
-    const { commentForm, commentTextField, postBtn,  } = usePostFormStyles();
+    const { commentForm, commentTextField, postBtn, } = usePostFormStyles();
 
     const [comment, setComment] = useState({
         text: ''
@@ -23,9 +23,9 @@ const CommentForm = ({ post: { _id }, addComment }) => {
     return (
         <form className={commentForm} onSubmit={handleSubmit}>
             <TextField variant="outlined" multiline className={commentTextField}
-                placeholder="Write a comment..." value={comment.text}  
-                onChange={e => setComment({ text: e.target.value })} required />
-            <Button type="submit" variant="contained" color="secondary" className={postBtn}>Comment</Button>
+                placeholder="Write a comment..." value={comment.text}
+                onChange={e => setComment({ text: e.target.value })} />
+            <Button type="submit" variant="contained" color="secondary" className={postBtn} disabled={comment.text ? false : true}>Comment</Button>
         </form >
     )
 }

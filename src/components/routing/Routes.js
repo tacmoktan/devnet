@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Alert from '../layouts/Alert';
 import NotFound from '../layouts/NotFound';
@@ -19,6 +19,7 @@ import PrivateRoute from './PrivateRoute';
 const Routes = () => (
     <section className='container'>
         <Alert />
+
         <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
@@ -26,7 +27,7 @@ const Routes = () => (
             <Route exact path="/developers/:id" component={Profile} />
 
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            
+
             <PrivateRoute exact path="/create-profile" component={ProfileForm} />
             <PrivateRoute exact path="/posts" component={Posts} />
             <PrivateRoute exact path="/post/:id" component={Post} />

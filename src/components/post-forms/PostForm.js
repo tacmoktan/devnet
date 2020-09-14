@@ -19,9 +19,9 @@ const PostForm = ({ createPost }) => {
     return (
         <form className={postForm} onSubmit={handleSubmit}>
             <TextField variant="outlined" multiline placeholder="Write something..."
-                className={postTextField}  value={postText}
-                onChange={e => setPostText(e.target.value)} required />
-            <Button variant="contained" color="secondary" type="submit" className={postBtn}>Post</Button>
+                className={postTextField} value={postText}
+                onChange={e => setPostText(e.target.value)} />
+            <Button variant="contained" color="secondary" type="submit" className={postBtn} disabled={postText ? false : true}>Post</Button>
         </form>
     )
 }

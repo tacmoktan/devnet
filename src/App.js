@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import Navbar from './components/layouts/Navbar';
@@ -17,6 +17,7 @@ import themeReducer from './context-api/themeReducer';
 import Context from './context-api/context';
 //fonts
 import { Champion, Gilroy, Avenir } from './fonts/fonts';
+
 if (localStorage.token)
   setAuthToken(localStorage.token)
 
@@ -85,24 +86,23 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Router>
-        <Context.Provider value={{ state, dispatch }}>
+      <Context.Provider value={{ state, dispatch }}>
 
-          <ThemeProvider theme={myTheme}>
-            <CssBaseline />
-            <div className="App">
-              <Navbar />
-              <Switch>
-                <Route exact path="/" component={Landing} />
-                <Routes />
-              </Switch>
+        <ThemeProvider theme={myTheme}>
+          <CssBaseline />
+          <div className="App">
+            <Navbar />
 
-              <Footer />
-            </div>
-          </ThemeProvider>
+            <Switch >
+              <Route exact path="/" component={Landing} />
+              <Routes />
+            </Switch>
 
-        </Context.Provider>
-      </Router>
+            <Footer />
+          </div>
+        </ThemeProvider>
+
+      </Context.Provider>
     </Provider>
   );
 }
