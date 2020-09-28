@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -9,9 +9,11 @@ import LockRoundedIcon from '@material-ui/icons/LockRounded';
 import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormControlLabel, Checkbox } from '@material-ui/core/';
+import { FormControlLabel, Checkbox, IconButton } from '@material-ui/core/';
 import WbIncandescentIcon from '@material-ui/icons/WbIncandescent';
 import WbIncandescentOutlinedIcon from '@material-ui/icons/WbIncandescentOutlined';
+import MenuIcon from '@material-ui/icons/Menu';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 //action
 import { logout } from '../../redux/actions/auth';
@@ -27,15 +29,52 @@ const useNavbarStyles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '10px 0'
+        padding: '10px 0',
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column',
+        }
+    },
+    logoMenuContainer: {
+        display: ' flex',
+        alignItems: ' center',
+        justifyContent: ' space-between',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+        }
     },
     logoImg: {
         width: 110
+    },
+    menuButton: {
+        display: 'none',
+        [theme.breakpoints.down('sm')]: {
+            display: 'block'
+        }
     },
     linkContainer: {
         display: "flex",
         justifyContent: 'space-between',
         alignItems: 'center',
+        [theme.breakpoints.down('sm')]: {
+            display: showNav => showNav ? 'flex' : 'none',            //grid or none
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            '& label': {
+                margin: '0 auto'        //dark mode btn center
+            }
+        }
+    },
+    authNav: {
+        width: 600,
+        [theme.breakpoints.down('sm')]: {
+            width: '100%'
+        }
+    },
+    guestNav: {
+        width: 450,
+        [theme.breakpoints.down('sm')]: {
+            width: '100%'
+        }
     },
     navLink: {
         display: 'flex',
@@ -44,6 +83,14 @@ const useNavbarStyles = makeStyles(theme => ({
         fontSize: '1.2em',
         '&:hover': {
             color: theme.palette.secondary.light
+        },
+        background: 'transparent',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+            padding: '10px 0',
+            '&:hover': {
+                background: theme.palette.action.hover
+            }
         }
     },
     authBtnContainer: {
@@ -52,6 +99,15 @@ const useNavbarStyles = makeStyles(theme => ({
     authBtn: {
         padding: '8px 20px',
         border: `2px solid ${theme.palette.divider}`,
+        '&:hover': {
+            borderColor: theme.palette.secondary.light,
+        },
+        [theme.breakpoints.down('sm')]: {
+            display: 'flex',
+            columnGap: '5px',
+            width: 'fit-content',
+            margin: '10px 0',
+        }
     },
     registerBtn: {
         backgroundColor: theme.palette.secondary.dark,
@@ -72,9 +128,15 @@ const Navbar = ({ auth, logout }) => {
         dispatch({ type: "TOGGLE_DARK_MODE" })
     }
 
+    //responsive Nav
+    const [showNav, setNav] = useState(false);
+
+    const handleShowNav = () => setNav(!showNav);
+
     const { isAuthenticated, loading } = auth;
 
-    const { header, nav, logoImg, linkContainer, navLink, authBtnContainer, authBtn, registerBtn } = useNavbarStyles();
+    const { header, nav, logoMenuContainer, logoImg, menuButton, linkContainer, guestNav, authNav,
+        navLink, authBtnContainer, authBtn, registerBtn } = useNavbarStyles(showNav);
 
     const authLinks = (<>
         <Link className={navLink} to="/developers">Developers</Link>
@@ -96,10 +158,16 @@ const Navbar = ({ auth, logout }) => {
         <div className={header}>
             <div className="head main-container">
                 <nav className={nav}>
-                    <Link to="/">
-                        <img src={DevNetLogo} className={logoImg} alt="devnet logo" />
-                    </Link>
-                    <div className={linkContainer} style={{ width: isAuthenticated ? 600 : 450 }}>  {/* varying navbar width */}
+                    <span className={logoMenuContainer}>
+                        <Link to="/">
+                            <img src={DevNetLogo} className={logoImg} alt="devnet logo" />
+                        </Link>
+                        <IconButton className={menuButton} onClick={handleShowNav} color="primary">
+                            {showNav ? <CancelIcon /> : <MenuIcon />}
+                        </IconButton>
+                    </span>
+
+                    <div className={isAuthenticated ? `${linkContainer} ${authNav}` : `${linkContainer} ${guestNav}`}>
 
                         <FormControlLabel
                             control={<Checkbox icon={<WbIncandescentOutlinedIcon color="primary" fontSize="small" />}
