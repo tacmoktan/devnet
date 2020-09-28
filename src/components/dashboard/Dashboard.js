@@ -28,6 +28,7 @@ const Dashboard = ({ auth: { user }, profile: { profile, loading }, getCurrentPr
 
     useEffect(() => {
         getCurrentProfile();
+        document.title = 'DevNet - Dashboard';
     }, [getCurrentProfile]);
 
     //dialog controls

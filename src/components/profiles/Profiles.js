@@ -29,6 +29,7 @@ const Profiles = ({ profile: { profiles, loading, error }, getAllProfiles }) => 
 
     useEffect(() => {
         getAllProfiles();
+        document.title="DevNet - Professional Developers"
     }, [getAllProfiles]);
 
     const profileBlocks = error ? <h1>{error.msg}</h1> : (

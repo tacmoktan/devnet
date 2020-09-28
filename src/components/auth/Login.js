@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -9,13 +9,17 @@ import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { useAuthFormStyles } from '../../styles/authFormStyles';
 
 const Login = ({ login, isAuthenticated }) => {
-
     const { externalLink, formAndImageContainer, formContainer, formImage } = useAuthFormStyles();
+
+    useEffect(() => {
+        document.title = "DevNet - Sign in"
+    }, [])
 
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     })
+
 
     const { email, password } = formData;
 

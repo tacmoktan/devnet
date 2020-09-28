@@ -17,6 +17,7 @@ const Posts = ({ getPosts, post: { posts, loading }, auth }) => {
 
     useEffect(() => {
         getPosts();
+        document.title="DevNet - Discussion Forum"
     }, [getPosts])
 
     return (

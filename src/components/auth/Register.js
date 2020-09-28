@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -12,6 +12,10 @@ import { useAuthFormStyles } from '../../styles/authFormStyles';
 const Register = ({ setAlert, register, isAuthenticated }) => {
 
     const { externalLink, formContainer, formImage } = useAuthFormStyles();
+
+    useEffect(() => {
+        document.title = "DevNet - Register an Account"
+    }, [])
 
     const [formData, setFormData] = useState({
         name: '',
@@ -54,7 +58,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                             <TextField variant="outlined" className="input" type="email" name="email" label="Email" onChange={handleChange} required />
                             <TextField variant="outlined" className="input" type="password" name="password" label="Password" onChange={handleChange} required />
                             <TextField variant="outlined" className="input" type="password" name="confirmPassword" label="Confirm password" onChange={handleChange} required />
-                            <Button variant="contained" color="secondary" type="submit" value="Submit" endIcon={ <ArrowRightAltIcon />}>
+                            <Button variant="contained" color="secondary" type="submit" value="Submit" endIcon={<ArrowRightAltIcon />}>
                                 Register
                             </Button>
                         </form>

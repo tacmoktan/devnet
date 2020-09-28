@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link as RouterLink } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
@@ -9,6 +9,10 @@ import { Grid, Typography, Button } from '@material-ui/core';
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 
 const Landing = ({ isAuthenticated }) => {
+
+    useEffect(() => {
+        document.title = "DevNet - social network for IT professionals";
+    })
 
     const useLandingStyles = makeStyles(theme => ({
         landingHeroImage: {
