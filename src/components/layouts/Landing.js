@@ -20,6 +20,9 @@ const Landing = ({ isAuthenticated }) => {
             width: '100%',
             marginLeft: 'auto',
             display: 'block',
+            [theme.breakpoints.down('500')]: {
+                display: 'none'
+            }
         },
         landingTextContainer: {
             display: 'grid',
